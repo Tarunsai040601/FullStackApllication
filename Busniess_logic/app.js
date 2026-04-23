@@ -3,7 +3,6 @@ const express = require("express");
 const DataBase = require("./Configurations/Config.js");
 const authRoutes = require("./Routers/AuthRouters/AuthRouters.js");
 
-
 // initalisation the dotenv files
 const dotenv = require("dotenv").config({ quiet: true });
 
@@ -14,11 +13,11 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 // payload data vaild we use middlewares like
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // taking router from authroute file as middleware
-app.use("/api",authRoutes);
+app.use("/api", authRoutes);
 
 // server function
 const server = () => {

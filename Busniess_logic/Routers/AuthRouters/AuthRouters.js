@@ -24,7 +24,7 @@ authRoutes.get("/default", async (req, res) => {
 authRoutes.post("/register", registerController);
 
 // login api
-authRoutes.get("/login", loginController);
+authRoutes.post("/login", loginController);
 
 // module export
 module.exports = authRoutes;
