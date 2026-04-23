@@ -1,7 +1,8 @@
 // retriving schema from authschema
 const adminData = require("../../Models/AuthSchema/adminSchema.js");
-const userData=require("../../Models/AuthSchema/userSchema.js")
+const userData = require("../../Models/AuthSchema/userSchema.js");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // register controller
 const registerController = async (req, res) => {
@@ -50,7 +51,7 @@ const registerController = async (req, res) => {
     const newUser = new Model({
       email,
       password: protectPassword,
-      role: roleNormalized, 
+      role: roleNormalized,
     });
 
     await newUser.save();
@@ -59,7 +60,6 @@ const registerController = async (req, res) => {
       message: `${roleNormalized} registered successfully`,
       details: { email: newUser.email, role: newUser.role },
     });
-
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -117,15 +117,20 @@ const loginController = async (req, res) => {
       });
     }
 
+    const token = jwt.sign(
+      { id: foundUser._id, email: foundUser.email, role: foundUser.role },
+      process.env.jwt_token,
+      { expiresIn: "1h" },
+    );
     // success
     res.status(200).json({
       message: "login successful",
       details: {
         email: foundUser.email,
-        role: foundUser.role, 
+        role: foundUser.role,
       },
+      token:token
     });
-
   } catch (error) {
     console.log(error);
     res.status(500).json({
