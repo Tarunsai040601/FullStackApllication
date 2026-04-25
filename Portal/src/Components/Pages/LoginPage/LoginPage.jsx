@@ -47,7 +47,7 @@ const LoginPage = () => {
         if (res.data.user.role === "admin") {
           navigate("/admin-dashboard");
         } else {
-          navigate("/user-dashboard");
+          navigate("/");
         }
       });
 
@@ -114,7 +114,7 @@ const LoginPage = () => {
 
         <p>
           Don't have an account?{" "}
-          <Link to="/">Register</Link>
+          <Link to="/register">Register</Link>
         </p>
 
       </div>
