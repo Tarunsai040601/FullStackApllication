@@ -1,41 +1,48 @@
-// takening the jwt webtoken
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-// takinf dotenv
-const dotenv = require("dotenv").config({ quite: true });
-
-// auth middleware
-const authmiddleware = async (req, res, next) => {
+const authmiddleware = (req, res, next) => {
   try {
-    // authHeaders
-    const authHeaders = req.headers["authorization"];
+    const authHeaders = req.headers.authorization;
 
+    // ❌ No header
     if (!authHeaders) {
       return res.status(401).json({
-        message: "authHeader is missing",
+        success: false,
+        message: "Token required (Authorization header missing)",
       });
     }
 
-    // format: Bearer token
-    const Token = authHeaders.split(" ")[1];
-
-    if (!Token) {
+    // ❌ Wrong format
+    if (!authHeaders.startsWith("Bearer ")) {
       return res.status(401).json({
-        message: "token is missing",
+        success: false,
+        message: "Invalid token format. Use Bearer token",
       });
     }
 
-    // verify token
-    const tokenTrue = jwt.verify(Token, process.env.jwt_token);
+    const token = authHeaders.split(" ")[1];
 
-    req.user = tokenTrue;
+    // ❌ No token after Bearer
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        message: "Token required",
+      });
+    }
+
+    // ✅ Verify
+    const decoded = jwt.verify(token, process.env.jwt_token);
+
+    req.user = decoded;
 
     next();
-
   } catch (error) {
     return res.status(401).json({
-      message: "invalid or expired token",
+      success: false,
+      message: "Invalid or expired token",
     });
   }
 };
-module.exports = authmiddleware
+
+module.exports = authmiddleware;

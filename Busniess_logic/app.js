@@ -5,6 +5,7 @@ const authRoutes = require("./Routers/AuthRouters/AuthRouters.js");
 
 
 const cors = require("cors");
+const adminPost = require("./Routers/adminPostRoutes/adminPosts.js");
 
 
 // initalisation the dotenv files
@@ -25,6 +26,9 @@ app.use(cors());
 
 // taking router from authroute file as middleware
 app.use("/api", authRoutes);
+
+// admin posts
+app.use("/api",adminPost)
 
 // server function
 const server = () => {
