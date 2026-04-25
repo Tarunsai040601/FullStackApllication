@@ -1,55 +1,54 @@
 const express = require("express");
+
 const {
-  adminpostFetching,
-  adminpostData,
-  adminpostFetch,
-  adminpostUpdate,
-  adminPostDelete,
+  postFetching,
+  postData,
+  postFetch,
+  postUpdate,
+  PostDelete,
 } = require("../../Services/adminController/adminPostController");
 
 const authmiddleware = require("../../MiddleWares/AuthMiddle/Auth.js");
-const roleMiddleware = require("../../Middlewares/AuthMiddle/RoleMiddleware.js");
+const roleMiddleware = require("../../MiddleWares/AuthMiddle/RoleMiddleware.js");
+const upload = require("../../MiddleWares/multer");
 
 const adminPost = express.Router();
 
-// 🔓 Public route (optional)
-adminPost.get(
-  "/data/post",
-  authmiddleware,
-  roleMiddleware("admin"),
-  adminpostFetching,
-);
+// Public route
+adminPost.get("/data/post", postFetching);
 
-// 🔐 Admin only routes
+// POST
 adminPost.post(
   "/data/post",
   authmiddleware,
   roleMiddleware("admin"),
-  adminpostData,
+  upload.single("image"),  // ✅ MUST
+  postData
 );
 
-// get by id
+// GET BY ID
 adminPost.get(
   "/data/post/:id",
   authmiddleware,
   roleMiddleware("admin"),
-  adminpostFetch,
+  postFetch
 );
 
-// update
+// UPDATE
 adminPost.patch(
   "/data/post/:id",
   authmiddleware,
   roleMiddleware("admin"),
-  adminpostUpdate,
+  upload.single("image"),
+  postUpdate
 );
 
-// delete
+// DELETE
 adminPost.delete(
   "/data/post/:id",
   authmiddleware,
   roleMiddleware("admin"),
-  adminPostDelete,
+  PostDelete
 );
 
 module.exports = adminPost;

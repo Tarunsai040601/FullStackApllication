@@ -3,7 +3,10 @@ require("dotenv").config();
 
 const adminPostSchema = new mongoose.Schema(
   {
-    image: { type: String }, // ✅ URL as string
+    image: {
+  url: { type: String },
+  public_id: { type: String }
+}, 
     title: { type: String, required: true },
     description: { type: String, required: true }, // ✅ fixed typo
     cost: { type: String, required: true }
