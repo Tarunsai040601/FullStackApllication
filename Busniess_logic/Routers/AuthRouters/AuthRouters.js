@@ -1,30 +1,60 @@
-// initalisation the express lib
+// initialize express
 const express = require("express");
+
+// controllers
 const {
   registerController,
   loginController,
-} = require("../../Services/AuthServices/AuthServices");
+} = require("../../Services/AuthServices/AuthServices.js");
 
-// assiging router to a variable
+// middlewares
+const authmiddleware = require("../../MiddleWares/AuthMiddle/Auth.js");
+const roleMiddleware = require("../../Middlewares/AuthMiddle/RoleMiddleware.js");
+
+// router
 const authRoutes = express.Router();
 
-// creating a api authRoutes
-
-// default api
+// ✅ DEFAULT API
 authRoutes.get("/default", async (req, res) => {
   try {
     res.status(200).json({ message: "i am default api" });
   } catch (error) {
-    console.log("sonething went wrong:",error)
-    res.status(400).json({ message: "i am default api something went wrong" });
+    console.log("something went wrong:", error);
+    res.status(400).json({ message: "something went wrong" });
   }
 });
 
-// register api
+// ✅ REGISTER
 authRoutes.post("/register", registerController);
 
-// login api
+// ✅ LOGIN
 authRoutes.post("/login", loginController);
 
-// module export
+// 👑 ADMIN DASHBOARD (ONLY ADMIN)
+authRoutes.get(
+  "/admin-dashboard",
+  authmiddleware,
+  roleMiddleware("admin"),
+  (req, res) => {
+    res.status(200).json({
+      message: "Welcome Admin Dashboard",
+      user: req.user,
+    });
+  },
+);
+
+// 👤 USER DASHBOARD (ONLY USER)
+authRoutes.get(
+  "/user-dashboard",
+  authmiddleware,
+  roleMiddleware("user"),
+  (req, res) => {
+    res.status(200).json({
+      message: "Welcome User Dashboard",
+      user: req.user,
+    });
+  },
+);
+
+// export
 module.exports = authRoutes;

@@ -1,143 +1,154 @@
-// retriving schema from authschema
+// models
 const adminData = require("../../Models/AuthSchema/adminSchema.js");
 const userData = require("../../Models/AuthSchema/userSchema.js");
+
+// packages
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// register controller
+// helper → choose model based on role
+const getModelByRole = (role) => {
+  if (role === "admin") return adminData;
+  if (role === "user") return userData;
+  return null;
+};
+
+
+
+// ================= REGISTER =================
 const registerController = async (req, res) => {
   try {
     const { email, password, role } = req.body;
-    console.log("body_data:", req.body);
 
-    // required fields
+    // validations
     if (!email || !password || !role) {
       return res.status(400).json({
-        message: "all fields required",
+        message: "All fields are required",
       });
     }
 
-    // normalize role
     const roleNormalized = role.toLowerCase();
 
-    // validate role
-    if (roleNormalized !== "admin" && roleNormalized !== "user") {
+    if (!["admin", "user"].includes(roleNormalized)) {
       return res.status(400).json({
-        message: "role must be admin or user",
+        message: "Role must be admin or user",
       });
     }
 
-    // choose collection
-    let Model;
-    if (roleNormalized === "admin") {
-      Model = adminData;
-    } else {
-      Model = userData;
-    }
+    // select model
+    const Model = getModelByRole(roleNormalized);
 
-    // check user exists
-    const foundUser = await Model.findOne({ email });
+    // check existing user
+    const existingUser = await Model.findOne({ email });
 
-    if (foundUser) {
+    if (existingUser) {
       return res.status(409).json({
-        message: `user already exist with ${email}`,
+        message: "User already exists",
       });
     }
 
     // hash password
-    const protectPassword = bcrypt.hashSync(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     // create user
-    const newUser = new Model({
+    const newUser = await Model.create({
       email,
-      password: protectPassword,
+      password: hashedPassword,
       role: roleNormalized,
     });
 
-    await newUser.save();
-
-    res.status(201).json({
+    return res.status(201).json({
       message: `${roleNormalized} registered successfully`,
-      details: { email: newUser.email, role: newUser.role },
+      user: {
+        id: newUser._id,
+        email: newUser.email,
+        role: newUser.role,
+      },
     });
+
   } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: "something went wrong",
+    console.error("Register Error:", error);
+    return res.status(500).json({
+      message: "Something went wrong",
     });
   }
 };
 
-// login controller
+
+
+// ================= LOGIN =================
 const loginController = async (req, res) => {
   try {
     const { email, password, role } = req.body;
-    console.log("body_data:", req.body);
 
-    // required fields
+    // validations
     if (!email || !password || !role) {
       return res.status(400).json({
-        message: "all fields required",
+        message: "All fields are required",
       });
     }
 
-    // normalize role
     const roleNormalized = role.toLowerCase();
 
-    // validate role
-    if (roleNormalized !== "admin" && roleNormalized !== "user") {
+    if (!["admin", "user"].includes(roleNormalized)) {
       return res.status(400).json({
-        message: "role must be admin or user",
+        message: "Role must be admin or user",
       });
     }
 
-    // choose collection
-    let Model;
-    if (roleNormalized === "admin") {
-      Model = adminData;
-    } else {
-      Model = userData;
-    }
+    // select model
+    const Model = getModelByRole(roleNormalized);
 
     // find user
-    const foundUser = await Model.findOne({ email });
+    const user = await Model.findOne({ email });
 
-    if (!foundUser) {
+    if (!user) {
       return res.status(404).json({
-        message: `user not found`,
+        message: "User not found",
       });
     }
 
     // compare password
-    const isMatch = await bcrypt.compare(password, foundUser.password);
+    const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
       return res.status(401).json({
-        message: "invalid credentials",
+        message: "Invalid credentials",
       });
     }
 
+    // generate token
     const token = jwt.sign(
-      { id: foundUser._id, email: foundUser.email, role: foundUser.role },
-      process.env.jwt_token,
-      { expiresIn: "1h" },
-    );
-    // success
-    res.status(200).json({
-      message: "login successful",
-      details: {
-        email: foundUser.email,
-        role: foundUser.role,
+      {
+        id: user._id,
+        email: user.email,
+        role: user.role,
       },
-      token:token
+      process.env.jwt_token,
+      { expiresIn: "1h" }
+    );
+
+    return res.status(200).json({
+      message: "Login successful",
+      user: {
+        email: user.email,
+        role: user.role,
+      },
+      token,
     });
+
   } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: "something went wrong",
+    console.error("Login Error:", error);
+    return res.status(500).json({
+      message: "Something went wrong",
     });
   }
 };
 
-// module export
-module.exports = { registerController, loginController };
+
+
+// export
+module.exports = {
+  registerController,
+  loginController,
+};

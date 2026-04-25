@@ -38,4 +38,4 @@ const authmiddleware = async (req, res, next) => {
     });
   }
 };
-module.export=authmiddleware
+module.exports = authmiddleware
