@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./UserHome.css";
+import Fotter from '../../Fotter/Fotter.jsx'
 import thread from '../../../assets/images/thread.jpg'
 import threading_02 from '../../../assets/images/threading_02.jpeg'
 import threading_03 from '../../../assets/images/threading_03.jpeg'
@@ -106,7 +107,7 @@ const UserHome = () => {
           </div>
         </div>
       </div>
-
+        <Fotter/>
     </div>
   );
 };

@@ -1,17 +1,17 @@
-/* navbar container */
+/* NAVBAR */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 40px;
   background-color: burlywood;
-  color:darkred;
+  color: darkred;
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
-/* logo */
+/* LOGO */
 .logo {
   display: flex;
   align-items: center;
@@ -29,29 +29,29 @@
   font-weight: bold;
 }
 
-/* hover logo */
 .logo img:hover {
   transform: rotate(10deg) scale(1.1);
 }
 
-/* nav links */
+/* NAV LINKS */
 .nav-links {
   display: flex;
   gap: 25px;
-  list-style: none;
 }
 
-.nav-links li {
+/* LINKS */
+.nav-links a {
+  text-decoration: none;
+  color: inherit;
   display: flex;
   align-items: center;
   gap: 6px;
-  cursor: pointer;
   position: relative;
   transition: 0.3s;
 }
 
-/* underline animation */
-.nav-links li::after {
+/* HOVER */
+.nav-links a::after {
   content: "";
   width: 0%;
   height: 2px;
@@ -62,22 +62,28 @@
   transition: 0.3s;
 }
 
-.nav-links li:hover::after {
+.nav-links a:hover::after {
   width: 100%;
 }
 
-.nav-links li:hover {
+.nav-links a:hover {
   transform: translateY(-2px);
 }
 
-/* right section */
+/* ACTIVE */
+.active-link {
+  color: yellow;
+  font-weight: bold;
+}
+
+/* RIGHT SIDE */
 .nav-right {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-/* cart */
+/* CART */
 .cart {
   font-size: 20px;
   cursor: pointer;
@@ -88,7 +94,7 @@
   transform: scale(1.2);
 }
 
-/* login button */
+/* DESKTOP BUTTON */
 .login-btn {
   display: flex;
   align-items: center;
@@ -108,68 +114,46 @@
   transform: scale(1.05);
 }
 
-/* responsive */
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-  }
-
-  .navbar {
-    padding: 15px 20px;
-  }
-
-  .logo h2 {
-    font-size: 16px;
-  }
+/* MOBILE LOGIN BUTTON */
+.mobile-login-btn {
+  background: white;
+  color: #6c63ff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  display:none
 }
 
-/* existing styles same... add below */
 
-/* hamburger */
+/* USER INFO CONTAINER */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* PROFILE IMAGE */
+.user-avatar {
+  width: 40px;       /* medium size */
+  height: 40px;
+  border-radius: 50%;  /* 🔥 circle */
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+/* TEXT */
+.welcome-text {
+  font-weight: bold;
+  color: darkblue;
+}
+
+/* HAMBURGER */
 .menu-icon {
   display: none;
   font-size: 24px;
   cursor: pointer;
-}
-
-/* MOBILE VIEW */
-@media (max-width: 768px) {
-
-  .menu-icon {
-    display: block;
-    color: white;
-  }
-
-  .nav-links {
-    position: absolute;
-    top: 70px;
-    left: -100%;
-    width: 100%;
-    background: #6c63ff;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    padding: 20px 0;
-    transition: 0.4s ease-in-out;
-  }
-
-  /* active menu */
-  .nav-links.active {
-    left: 0;
-  }
-
-  .nav-links li {
-    font-size: 18px;
-  }
-
-  .nav-right {
-    display: none; /* optional hide in mobile */
-  }
-}
-
-/* mobile menu hidden by default */
-.nav-links {
-  display: flex;
 }
 
 /* MOBILE */
@@ -177,8 +161,6 @@
 
   .menu-icon {
     display: block;
-    font-size: 24px;
-    cursor: pointer;
     color: white;
   }
 
@@ -193,14 +175,12 @@
     gap: 20px;
     padding: 20px 0;
 
-    /* 🔥 KEY PART */
     transform: translateY(-150%);
     opacity: 0;
     pointer-events: none;
     transition: 0.4s ease;
   }
 
-  /* SHOW MENU */
   .nav-links.active {
     transform: translateY(0);
     opacity: 1;
@@ -209,5 +189,8 @@
 
   .nav-right {
     display: none;
+  }
+  .mobile-login-btn {
+    display: block;   /* ✅ show only in mobile */
   }
 }

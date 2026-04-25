@@ -1,0 +1,19 @@
+.footer-copyright {
+  text-align: center;
+  padding: 20px;
+  background-color: #111;
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+
+
+/* body {
+  display: flex;
+  flex-direction: column;
+  width:100vw;
+} */
+
+#root {
+  flex: 1;
+}

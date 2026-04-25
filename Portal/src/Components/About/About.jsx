@@ -1,6 +1,8 @@
 import React from "react";
 import titleimage from "../../assets/images/titleimage.jpg"; // ✅ Add correct extension like .jpg or .png
 import "./About.css";
+import Fotter from '../Fotter/Fotter.jsx'
+import Teams from "../Teams/Teams";
 
 const About = () => {
   return (
@@ -36,7 +38,8 @@ const About = () => {
           </div>
         </div>
       </div>
-     
+     <Teams/>
+     <Fotter/>
     </div>
   );
 };

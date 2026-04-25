@@ -16,7 +16,6 @@ const LoginPage = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  // handle change
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -24,7 +23,6 @@ const LoginPage = () => {
     });
   };
 
-  // submit
   const handlerSubmit = async (e) => {
     e.preventDefault();
 
@@ -34,20 +32,19 @@ const LoginPage = () => {
         formData
       );
 
-      // store token
+      // ✅ STORE TOKEN + USER NAME
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("userName", res.data.user.email); // or name
 
       Swal.fire({
-        title: "Login Success 🎉",
-        text: res.data.message,
+        title: "Welcome 🎉",
+        text: "Login successful!",
         icon: "success",
-        confirmButtonColor: "#6c63ff",
       }).then(() => {
-        // role based redirect
         if (res.data.user.role === "admin") {
           navigate("/admin-dashboard");
         } else {
-          navigate("/");
+          navigate("/home");
         }
       });
 
@@ -68,7 +65,6 @@ const LoginPage = () => {
 
         <form onSubmit={handlerSubmit}>
 
-          {/* EMAIL */}
           <input
             type="email"
             name="email"
@@ -78,7 +74,6 @@ const LoginPage = () => {
             required
           />
 
-          {/* PASSWORD */}
           <div className="password-field">
             <input
               type={showPassword ? "text" : "password"}
@@ -88,16 +83,11 @@ const LoginPage = () => {
               onChange={handleChange}
               required
             />
-
-            <span
-              className="toggle-icon"
-              onClick={() => setShowPassword(!showPassword)}
-            >
+            <span onClick={() => setShowPassword(!showPassword)}>
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
 
-          {/* ROLE */}
           <select
             name="role"
             value={formData.role}
@@ -113,8 +103,7 @@ const LoginPage = () => {
         </form>
 
         <p>
-          Don't have an account?{" "}
-          <Link to="/register">Register</Link>
+          Don't have an account? <Link to="/register">Register</Link>
         </p>
 
       </div>

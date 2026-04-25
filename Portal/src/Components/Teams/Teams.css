@@ -1,0 +1,123 @@
+.team-section {
+  padding: 80px 20px;
+  background-color:antiquewhite;
+  text-align: center;
+}
+
+.team-header h1 {
+  font-size: 2.5rem;
+  color: #0f2d40;
+  margin-bottom: 10px;
+}
+
+.team-header p {
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ✅ Flex layout for team cards */
+.team-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+
+/* ✅ Individual card */
+.team-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 30px 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 300px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.team-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 6px 2px 4px rgba(0, 0, 0, 0.15);
+  background-color:burlywood;
+}
+
+.team-card img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 4px solid #0f2d40;
+}
+
+.team-card h3 {
+  font-size: 1.3rem;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.team-card .role {
+  color: brown;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.team-card .desc {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  text-align: center;
+  min-height: 80px;
+}
+
+.team-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 22px;
+}
+
+.team-icons a {
+  color:red;
+  transition: color 0.3s;
+}
+
+.team-icons a:hover {
+  color:brown;
+}
+
+/* ✅ Responsive: Stack on smaller screens */
+@media (max-width: 768px) {
+  .team-header h1 {
+    font-size: 2rem;
+  }
+
+  .team-card {
+    width: 100%;
+    max-width: 340px;
+    height: auto;
+    padding: 25px 15px;
+  }
+
+  .team-card img {
+    width: 90px;
+    height: 90px;
+  }
+
+  .team-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .team-card .desc {
+    font-size: 0.9rem;
+  }
+}
