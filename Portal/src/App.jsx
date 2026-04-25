@@ -1,34 +1,35 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
+
 import Register from "./Components/Pages/RegisterPage/Register";
 import LoginPage from "./Components/Pages/LoginPage/LoginPage";
-import UserNavBar from "./Components/NavBars/UserNavBar/UserNavBar";
 
-
-import { Routes, Route } from "react-router-dom";
 import UserHome from "./Components/Home/UserHome/UserHome";
+import About from "./Components/About/About";
+
+import Layout from "./Components/LayOuts/Layouts";
 
 const App = () => {
   return (
-    <div>
-      <Routes>
+    <Routes>
 
-        {/* Home Page (Navbar + Content) */}
-        <Route
-          path="/"
-          element={
-            <>
-              <UserNavBar />
-              <UserHome/>
-            </>
-          }
-        />
+      {/* ✅ Public Routes */}
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<Register />} />
 
-        {/* Auth Pages */}
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<LoginPage />} />
+      {/* ✅ Layout Routes */}
+      <Route path="/" element={<Layout />}>
 
-      </Routes>
-    </div>
+        {/* 🔥 Default Home Page */}
+        <Route index element={<UserHome />} />
+
+        {/* Other Pages */}
+        <Route path="/home" element={<UserHome />} />
+        <Route path="/about" element={<About />} />
+
+      </Route>
+
+    </Routes>
   );
 };
 

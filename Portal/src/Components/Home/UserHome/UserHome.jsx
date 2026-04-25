@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./UserHome.css";
-
+import thread from '../../../assets/images/thread.jpg'
+import threading_02 from '../../../assets/images/threading_02.jpeg'
+import threading_03 from '../../../assets/images/threading_03.jpeg'
+import photo1 from '../../../assets/images/photo1.jpg'
+import photo3 from '../../../assets/images/photo3.jpg'
+import newphoto from '../../../assets/images/newphoto.jpg'
+import classicPhoto from '../../../assets/images/classicPhoto.jpg'
+import com_01 from '../../../assets/images/com_01.jpeg'
+import collegoues from '../../../assets/images/collegoues.jpg'
 const heroImages = [
-  "https://cdn.shopify.com/s/files/1/0733/5539/5383/files/7_a4beab89-9c77-4bfa-97a6-0fd26cfe9509.jpg?v=1692777162",
-  "https://images.unsplash.com/photo-1519741497674-611481863552",
-  "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
-  "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
+  "https://bycraftroom.com/cdn/shop/files/IMG_4846.jpg?v=1774621963&width=3024",
+  "https://diybaazar.com/publicuploads/seller/products/name-string-art-wall-hanging-thread-and-nail-art-1-1_1742171080.jpg",
+  "https://t4.ftcdn.net/jpg/18/07/58/11/360_F_1807581180_gpXB2Q7yTogdeVnvP44sJccRz7ZVhYif.jpg",
+  "https://images.squarespace-cdn.com/content/v1/60ad4dc8c9a050508182af86/0c1933d1-91e7-4b89-8a87-24560705e2d4/Key+image+collage+horizontal.png",
   "https://images.unsplash.com/photo-1517841905240-472988babdf9",
   "https://images.unsplash.com/photo-1492724441997-5dc865305da7",
   "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
@@ -21,7 +29,7 @@ const UserHome = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % heroImages.length);
-    }, 5000); // change every 1 sec
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
@@ -49,13 +57,13 @@ const UserHome = () => {
 
         <div className="image-row">
           <div className="frame">
-            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" />
+            <img src={classicPhoto}/>
           </div>
           <div className="frame">
-            <img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d" />
+            <img src={com_01} />
           </div>
           <div className="frame">
-            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9" />
+            <img src={collegoues} />
           </div>
         </div>
       </div>
@@ -66,13 +74,13 @@ const UserHome = () => {
 
         <div className="image-row">
           <div className="thread-card">
-            <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba" />
+            <img src={thread} />
           </div>
           <div className="thread-card">
-            <img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7" />
+            <img src={threading_03} />
           </div>
           <div className="thread-card">
-            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" />
+            <img src={threading_02} />
           </div>
         </div>
       </div>
@@ -83,17 +91,17 @@ const UserHome = () => {
 
         <div className="image-row">
           <div className="gift-card">
-            <img src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a" />
-            <p>Chocolate Box</p>
+            <img src={photo1} />
+            <p>Glass Jar </p>
           </div>
 
           <div className="gift-card">
-            <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48" />
+            <img src={photo3} />
             <p>Gift Hamper</p>
           </div>
 
           <div className="gift-card">
-            <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0" />
+            <img src={newphoto} />
             <p>Love Combo</p>
           </div>
         </div>

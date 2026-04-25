@@ -10,6 +10,9 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa";
+import { FcCustomerSupport } from "react-icons/fc";
+import { DiAndroid } from "react-icons/di";
+import { IoCameraOutline } from "react-icons/io5";
 import "./UserNavBar.css";
 import titlepic from '../../../assets/images/titlepic.jpg'
 
@@ -38,8 +41,9 @@ const UserNavBar = () => {
       <ul className={`nav-links ${menuOpen ? "active" : ""}`}>
         <li onClick={() => setMenuOpen(false)}><FaHome /> Home</li>
         <li onClick={() => setMenuOpen(false)}><FaInfoCircle /> About</li>
-        <li onClick={() => setMenuOpen(false)}><FaServicestack /> Services</li>
-        <li onClick={() => setMenuOpen(false)}><FaUtensils /> Items</li>
+        <li onClick={() => setMenuOpen(false)}><DiAndroid /> Services</li>
+         <li onClick={() => setMenuOpen(false)}><FcCustomerSupport /> CustomerReviews</li>
+        <li onClick={() => setMenuOpen(false)}><IoCameraOutline /> Items</li>
       </ul>
 
       {/* RIGHT SIDE */}
