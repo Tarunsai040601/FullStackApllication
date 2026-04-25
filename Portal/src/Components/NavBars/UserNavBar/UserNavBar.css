@@ -169,7 +169,8 @@
     top: 70px;
     left: 0;
     width: 100%;
-    background: #6c63ff;
+    background-color: burlywood;
+    color: #f0f0f0;
     flex-direction: column;
     align-items: center;
     gap: 20px;
@@ -191,6 +192,6 @@
     display: none;
   }
   .mobile-login-btn {
-    display: block;   /* ✅ show only in mobile */
+    display: block;   
   }
 }

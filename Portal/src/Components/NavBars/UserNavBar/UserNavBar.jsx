@@ -135,7 +135,7 @@ const UserNavBar = () => {
 )}
 
         {isLoggedIn ? (
-          <button className="login-btn" onClick={handleLogout}>
+          <button className="login-btn" onClick={handleLogout} style={{backgroundColor:"red",color:"white"}}>
             <FaSignOutAlt /> Logout
           </button>
         ) : (
