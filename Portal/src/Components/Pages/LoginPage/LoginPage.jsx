@@ -42,7 +42,7 @@ const LoginPage = () => {
         icon: "success",
       }).then(() => {
         if (res.data.user.role === "admin") {
-          navigate("/admin-dashboard");
+          navigate("/admindashboard");
         } else {
           navigate("/home");
         }
