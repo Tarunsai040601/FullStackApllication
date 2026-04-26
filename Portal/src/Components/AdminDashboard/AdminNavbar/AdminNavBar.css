@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap');
-*{
-    background: rgba(15, 12, 41, 0.85);
-}
+
 .admin-navbar {
   display: flex;
   align-items: center;
@@ -105,4 +103,73 @@
 .logout-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+}
+
+/* added */
+/* RIGHT SECTION */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* USER BOX */
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  font-size: 14px;
+}
+
+.user-box img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid #00f7ff;
+}
+
+/* TOGGLE BUTTON */
+.menu-toggle {
+  display: none;
+  font-size: 22px;
+  color: white;
+  cursor: pointer;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .navbar-links {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+
+    flex-direction: column;
+    background: rgba(15, 12, 41, 0.95);
+    backdrop-filter: blur(20px);
+
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.3s ease;
+  }
+
+  .navbar-links.active {
+    max-height: 300px;
+    padding: 10px 0;
+  }
+
+  .nav-link {
+    padding: 12px;
+    justify-content: center;
+  }
+
+  .nav-right {
+    display: none; /* hide on mobile for clean UI */
+  }
 }
