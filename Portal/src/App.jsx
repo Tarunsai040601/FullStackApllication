@@ -8,6 +8,8 @@ import Layout from "./Components/LayOuts/Layouts.jsx";
 import UserLogin from "./Components/Pages/LoginPage/LoginPage.jsx";
 import UserRegister from "./Components/Pages/RegisterPage/Register.jsx";
 import Services from "./Components/Services/Services.jsx";
+import AdminLayout from "./Components/LayOuts/AdminLayout.jsx";
+import AdminHomepage from "./Components/AdminDashboard/HomePages/Adminhomepage.jsx";
 
 
 
@@ -28,7 +30,10 @@ const App = () => {
       </Route>
 
       {/* 🔐 Admin Layout */}
-     
+     <Route path="/admindashboard" element={<AdminLayout/>}>
+     <Route path="/admindashboard" element={<AdminHomepage/>}/>
+
+     </Route>
 
 
     </Routes>
