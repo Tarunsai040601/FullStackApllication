@@ -4,12 +4,12 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./Register.css";
-import LoginPage from "../LoginPage/LoginPage";
 
 const Register = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
     role: "",
@@ -43,7 +43,6 @@ const Register = () => {
       }).then(() => {
         navigate("/login");
       });
-
     } catch (error) {
       Swal.fire({
         title: "Error ❌",
@@ -59,6 +58,16 @@ const Register = () => {
         <h2>Create Account</h2>
 
         <form onSubmit={handlerSubmit}>
+          
+          {/* NAME */}
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
 
           {/* EMAIL */}
           <input
@@ -70,7 +79,7 @@ const Register = () => {
             required
           />
 
-          {/* PASSWORD WITH SHOW/HIDE */}
+          {/* PASSWORD */}
           <div className="password-field">
             <input
               type={showPassword ? "text" : "password"}
@@ -105,8 +114,7 @@ const Register = () => {
         </form>
 
         <p>
-          Already have an account?{" "}
-          <Link to="/login">Login</Link>
+          Already have an account? <Link to="/login">Login</Link>
         </p>
       </div>
     </div>

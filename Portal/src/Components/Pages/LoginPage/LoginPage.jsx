@@ -9,6 +9,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
     role: "",
@@ -34,7 +35,7 @@ const LoginPage = () => {
 
       const { user, token } = res.data;
 
-      // 🔥 ROLE BASED SESSION
+      // ROLE BASED SESSION
       if (user.role === "admin") {
         sessionStorage.setItem("admin", JSON.stringify(user));
         sessionStorage.setItem("adminToken", token);
@@ -46,7 +47,6 @@ const LoginPage = () => {
       }
 
       Swal.fire("Login successful ✅");
-
     } catch (error) {
       Swal.fire("Login Failed ❌");
     }
@@ -58,6 +58,18 @@ const LoginPage = () => {
         <h2>Welcome Back</h2>
 
         <form onSubmit={handlerSubmit}>
+
+          {/* NAME */}
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+
+          {/* EMAIL */}
           <input
             type="email"
             name="email"
@@ -67,6 +79,7 @@ const LoginPage = () => {
             required
           />
 
+          {/* PASSWORD */}
           <div className="password-field">
             <input
               type={showPassword ? "text" : "password"}
@@ -76,11 +89,16 @@ const LoginPage = () => {
               onChange={handleChange}
               required
             />
-            <span onClick={() => setShowPassword(!showPassword)}>
+
+            <span
+              className="toggle-icon"
+              onClick={() => setShowPassword(!showPassword)}
+            >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
 
+          {/* ROLE */}
           <select
             name="role"
             value={formData.role}

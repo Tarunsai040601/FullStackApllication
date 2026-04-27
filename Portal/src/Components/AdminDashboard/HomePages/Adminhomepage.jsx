@@ -48,7 +48,7 @@ const AdminHomepage = () => {
   useEffect(() => {
     // ✅ Get admin name from session
     const admin = JSON.parse(sessionStorage.getItem("admin"));
-    const email = admin?.email || "Admin";
+    const email = admin?.name || "Admin";
     // Show only name part before @ if email
     const name = email.includes("@") ? email.split("@")[0] : email;
     setAdminName(name.charAt(0).toUpperCase() + name.slice(1));

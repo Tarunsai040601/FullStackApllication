@@ -1,36 +1,47 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import "./AdminNavBar.css";
 import {
   FiPackage,
-  FiStar,
   FiUsers,
   FiLogOut,
   FiMenu,
-  FiX
+  FiX,
+  FiHome
 } from "react-icons/fi";
 
 const AdminNavBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [adminName, setAdminName] = useState("");
 
   useEffect(() => {
     const admin = JSON.parse(sessionStorage.getItem("admin"));
-    setAdminName(admin?.email || "Admin");
+    setAdminName(admin?.name || "Admin");
   }, []);
 
+  // ✅ LOGOUT WITH ALERT
   const handleLogout = () => {
-    sessionStorage.removeItem("admin");
-    sessionStorage.removeItem("adminToken");
-    navigate("/login");
+    Swal.fire({
+      title: "Thank you 😊",
+      text: "Bye Bye 👋",
+      icon: "success",
+      timer: 2000,
+      showConfirmButton: false,
+    }).then(() => {
+      sessionStorage.removeItem("admin");
+      sessionStorage.removeItem("adminToken");
+      navigate("/login");
+    });
   };
 
   const navLinks = [
+    // { to: "/admindashboard", icon: <FiHome />, label: "Dashboard" },
     { to: "/admindashboard/products", icon: <FiPackage />, label: "Products" },
-    // { to: "/admindashboard/reviews", icon: <FiStar />, label: "Reviews" },
-    { to: "/admindashboard/customer", icon: <FiUsers />, label: "Customers" },
+    // { to: "/admindashboard/customer", icon: <FiUsers />, label: "Customers" },
   ];
 
   return (
@@ -47,10 +58,9 @@ const AdminNavBar = () => {
         {menuOpen ? <FiX /> : <FiMenu />}
       </div>
 
-      {/* NAV LINKS + MOBILE EXTRAS */}
+      {/* NAV LINKS */}
       <div className={`navbar-links ${menuOpen ? "active" : ""}`}>
 
-        {/* Page Links */}
         {navLinks.map(({ to, icon, label }) => (
           <Link
             key={to}
@@ -62,23 +72,24 @@ const AdminNavBar = () => {
           </Link>
         ))}
 
-        {/* ✅ MOBILE ONLY — Welcome greeting */}
+        {/* MOBILE WELCOME */}
         <div className="mobile-welcome">
           <span>👋 Welcome, {adminName}</span>
         </div>
 
-        {/* ✅ MOBILE ONLY — Logout button */}
+        {/* MOBILE LOGOUT */}
         <button className="mobile-logout-btn" onClick={handleLogout}>
           <FiLogOut /> Logout
         </button>
 
       </div>
 
-      {/* DESKTOP RIGHT SECTION */}
+      {/* DESKTOP RIGHT */}
       <div className="nav-right">
         <div className="user-box">
           <span>Admin: {adminName}</span>
         </div>
+
         <button className="logout-btn" onClick={handleLogout}>
           <FiLogOut /> Logout
         </button>

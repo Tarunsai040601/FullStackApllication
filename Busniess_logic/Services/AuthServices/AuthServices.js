@@ -18,10 +18,10 @@ const getModelByRole = (role) => {
 // ================= REGISTER =================
 const registerController = async (req, res) => {
   try {
-    const { email, password, role } = req.body;
+    const { name,email, password, role } = req.body;
 
     // validations
-    if (!email || !password || !role) {
+    if (!name||!email || !password || !role) {
       return res.status(400).json({
         message: "All fields are required",
       });
@@ -52,6 +52,7 @@ const registerController = async (req, res) => {
 
     // create user
     const newUser = await Model.create({
+      name,
       email,
       password: hashedPassword,
       role: roleNormalized,
@@ -60,7 +61,9 @@ const registerController = async (req, res) => {
     return res.status(201).json({
       message: `${roleNormalized} registered successfully`,
       user: {
+
         id: newUser._id,
+        name:newUser.name,
         email: newUser.email,
         role: newUser.role,
       },
@@ -79,10 +82,10 @@ const registerController = async (req, res) => {
 // ================= LOGIN =================
 const loginController = async (req, res) => {
   try {
-    const { email, password, role } = req.body;
+    const { name,email, password, role } = req.body;
 
     // validations
-    if (!email || !password || !role) {
+    if (!name||!email || !password || !role) {
       return res.status(400).json({
         message: "All fields are required",
       });
@@ -121,6 +124,7 @@ const loginController = async (req, res) => {
     const token = jwt.sign(
       {
         id: user._id,
+        name:user.name,
         email: user.email,
         role: user.role,
       },
@@ -131,6 +135,7 @@ const loginController = async (req, res) => {
     return res.status(200).json({
       message: "Login successful",
       user: {
+        name:user.name,
         email: user.email,
         role: user.role,
       },

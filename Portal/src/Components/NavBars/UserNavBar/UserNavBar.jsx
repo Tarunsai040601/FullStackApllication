@@ -66,7 +66,7 @@ const UserNavBar = () => {
   // 🔐 Login
   const handleLogin = () => {
     Swal.fire({
-      title: "Login Required 🔐",
+      title: "Hey dude Login Required 🔐",
       text: "Do you want to login?",
       icon: "question",
       showCancelButton: true,
@@ -78,7 +78,7 @@ const UserNavBar = () => {
   // 🔓 Logout
   const handleLogout = () => {
     Swal.fire({
-      title: "Logout?",
+      title: "TATA BYE BYE...!",
       icon: "warning",
       showCancelButton: true,
     }).then((res) => {

@@ -22,7 +22,7 @@
   color: #333;
 }
 
-/* inputs */
+/* inputs + select */
 .register-card input,
 .register-card select {
   width: 100%;
@@ -47,7 +47,7 @@
   position: relative;
 }
 
-/* icon */
+/* eye icon */
 .toggle-icon {
   position: absolute;
   right: 12px;
