@@ -18,6 +18,7 @@ import AdminLayout from "./Components/LayOuts/AdminLayout.jsx";
 import AdminHomepage from "./Components/AdminDashboard/HomePages/Adminhomepage.jsx";
 import AdminProducts from "./Components/AdminDashboard/AdminProducts/AdminProducts.jsx";
 import Customers from "./Components/AdminDashboard/Customers/Customers.jsx";
+import Reviews from "./Components/Reviews/ReviewPosters/Reviews.jsx";
 
 
 
@@ -37,7 +38,8 @@ const App = () => {
         <Route path="services" element={<Services />} />
         <Route path="items" element={<UserProductsDisplay />} />
         <Route path="cart" element={<CartPage />} />
-        <Route element={<Location/>}/>
+        <Route path="reviews" element={<Reviews/>}/>
+        <Route  element={<Location/>}/>
         
       </Route>
 

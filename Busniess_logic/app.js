@@ -7,6 +7,7 @@ const DataBase = require("./Configurations/Config.js");
 // 🔐 Routes
 const authRoutes = require("./Routers/AuthRouters/AuthRouters.js");
 const adminPost = require("./Routers/adminPostRoutes/adminPosts.js");
+const router = require("./Routers/reviewRoutes.js");
 
 
 const app = express();
@@ -27,6 +28,9 @@ app.use("/api", authRoutes);
 
 // Admin posts (products)
 app.use("/api/data", adminPost);
+
+// review
+app.use("/api/reviews",router)
 
 
 
