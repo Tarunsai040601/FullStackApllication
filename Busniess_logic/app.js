@@ -1,45 +1,36 @@
-// initalisation the express lib
 const express = require("express");
-const DataBase = require("./Configurations/Config.js");
-const authRoutes = require("./Routers/AuthRouters/AuthRouters.js");
-
-
 const cors = require("cors");
+const dotenv = require("dotenv").config();
+
+const DataBase = require("./Configurations/Config.js");
+
+// 🔐 Routes
+const authRoutes = require("./Routers/AuthRouters/AuthRouters.js");
 const adminPost = require("./Routers/adminPostRoutes/adminPosts.js");
-const review = require("./Routers/AdminReviewPosterRouter/Review.js");
 
 
-// initalisation the dotenv files
-const dotenv = require("dotenv").config({ quiet: true });
-
-// assiging a exprees too one variable
 const app = express();
-
-// assigin aport variable
 const port = process.env.PORT || 4000;
 
-// payload data vaild we use middlewares like
-
+/* ================= MIDDLEWARE ================= */
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors());
+/* ================= DATABASE ================= */
+DataBase();
 
-// taking router from authroute file as middleware
+/* ================= ROUTES ================= */
+
+// Auth routes (login/register)
 app.use("/api", authRoutes);
 
-// admin posts
-app.use("/api/data",adminPost)
-// admin review
-app.use("/api/reviews",review);
+// Admin posts (products)
+app.use("/api/data", adminPost);
 
-// server function
-const server = () => {
-  console.log(`server is runing on http://localhost:${port}`);
-};
 
-// server is creating by using listen module it is in built from nodejs
-app.listen(port, server);
 
-// database function
-DataBase();
+/* ================= SERVER START ================= */
+app.listen(port, () => {
+  console.log(`🚀 Server is running on http://localhost:${port}`);
+});

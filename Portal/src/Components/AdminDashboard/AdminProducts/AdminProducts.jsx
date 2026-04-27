@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./AdminProducts.css";
+import Swal from "sweetalert2";
 
 const API = "http://localhost:4000/api/data";
 
@@ -14,9 +15,10 @@ const AdminProducts = () => {
   });
   const [editId, setEditId] = useState(null);
 
-  const token = localStorage.getItem("token");
+  // ✅ ADMIN TOKEN FROM SESSION
+  const token = sessionStorage.getItem("adminToken");
 
-  // 🔹 FETCH PRODUCTS
+  /* ================= FETCH ================= */
   const fetchProducts = async () => {
     try {
       const res = await axios.get(`${API}/post`);
@@ -30,7 +32,7 @@ const AdminProducts = () => {
     fetchProducts();
   }, []);
 
-  // 🔹 INPUT HANDLER
+  /* ================= INPUT ================= */
   const handleChange = (e) => {
     if (e.target.name === "image") {
       setForm({ ...form, image: e.target.files[0] });
@@ -39,12 +41,12 @@ const AdminProducts = () => {
     }
   };
 
-  // 🔹 SUBMIT (ADD / UPDATE)
+  /* ================= SUBMIT ================= */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!token) {
-      alert("Please login first ❌");
+      Swal.fire("Admin login required ❌");
       return;
     }
 
@@ -52,47 +54,74 @@ const AdminProducts = () => {
     formData.append("title", form.title);
     formData.append("description", form.description);
     formData.append("cost", form.cost);
-    if (form.image) formData.append("image", form.image);
+
+    if (form.image) {
+      formData.append("image", form.image);
+    }
 
     try {
       if (editId) {
         await axios.put(`${API}/update/${editId}`, formData, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
-        alert("Product Updated Successfully ✅");
+
+        Swal.fire("Updated Successfully ✏️");
         setEditId(null);
       } else {
         await axios.post(`${API}/post`, formData, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
-        alert("Product Added Successfully ✅");
+
+        Swal.fire("Product Added ✅");
       }
 
-      setForm({ title: "", description: "", cost: "", image: null });
+      setForm({
+        title: "",
+        description: "",
+        cost: "",
+        image: null,
+      });
+
       fetchProducts();
+
     } catch (err) {
-      console.log(err);
-      alert("Something went wrong ❌");
+      console.log(err.response?.data || err.message);
+      Swal.fire(
+        err.response?.data?.message || "Something went wrong ❌"
+      );
     }
   };
 
-  // 🔹 DELETE
+  /* ================= DELETE ================= */
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure to delete?")) return;
+    const confirm = await Swal.fire({
+      title: "Delete this product?",
+      icon: "warning",
+      showCancelButton: true,
+    });
+
+    if (!confirm.isConfirmed) return;
 
     try {
       await axios.delete(`${API}/delete/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
-      alert("Product Deleted ✅");
+
+      Swal.fire("Deleted 🗑️");
       fetchProducts();
+
     } catch (err) {
-      console.log(err);
-      alert("Delete failed ❌");
+      Swal.fire("Delete failed ❌");
     }
   };
 
-  // 🔹 EDIT
+  /* ================= EDIT ================= */
   const handleEdit = (item) => {
     setForm({
       title: item.title,
@@ -100,14 +129,18 @@ const AdminProducts = () => {
       cost: item.cost,
       image: null,
     });
+
     setEditId(item._id);
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <div className="admin">
-      <h1>Product Upload</h1>
 
-      {/* FORM */}
+      <h1>{editId ? "Update Product ✏️" : "Add Product 📦"}</h1>
+
+      {/* 🔥 FORM */}
       <form onSubmit={handleSubmit} className="form">
         <input
           name="title"
@@ -116,6 +149,7 @@ const AdminProducts = () => {
           onChange={handleChange}
           required
         />
+
         <input
           name="description"
           placeholder="Description"
@@ -123,6 +157,7 @@ const AdminProducts = () => {
           onChange={handleChange}
           required
         />
+
         <input
           name="cost"
           placeholder="Cost"
@@ -130,18 +165,20 @@ const AdminProducts = () => {
           onChange={handleChange}
           required
         />
+
         <input type="file" name="image" onChange={handleChange} />
 
         <button type="submit">
-          {editId ? "Update" : "Add"}
+          {editId ? "Update Product" : "Add Product"}
         </button>
       </form>
 
-      {/* CARDS */}
+      {/* 🔥 PRODUCTS GRID */}
       <div className="grid">
         {products.map((p) => (
           <div className="card" key={p._id}>
             <img src={p.image.url} alt="product" />
+
             <h3>{p.title}</h3>
             <p>{p.description}</p>
             <h4>₹{p.cost}</h4>
@@ -150,13 +187,18 @@ const AdminProducts = () => {
               <button className="edit" onClick={() => handleEdit(p)}>
                 Edit
               </button>
-              <button className="delete" onClick={() => handleDelete(p._id)}>
+
+              <button
+                className="delete"
+                onClick={() => handleDelete(p._id)}
+              >
                 Delete
               </button>
             </div>
           </div>
         ))}
       </div>
+
     </div>
   );
 };

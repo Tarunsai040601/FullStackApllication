@@ -4,10 +4,22 @@ const cloudinary = require("../Configurations/cloudinary");
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  params: {
-    folder: "admin_reviews",
-    resource_type: "video", // 🔥 IMPORTANT
-    allowed_formats: ["mp4", "mov", "avi"], // video formats
+  params: (req, file) => {
+    // 🎯 check file type
+    if (file.mimetype.startsWith("video")) {
+      return {
+        folder: "uploads/videos",
+        resource_type: "video",
+        allowed_formats: ["mp4", "mov", "avi", "webm"],
+      };
+    }
+
+    // 🖼️ images
+    return {
+      folder: "uploads/images",
+      resource_type: "image",
+      allowed_formats: ["jpg", "png", "jpeg", "webp"],
+    };
   },
 });
 

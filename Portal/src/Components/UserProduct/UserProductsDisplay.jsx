@@ -17,25 +17,21 @@ const UserProductsDisplay = () => {
   }, []);
 
   const handleAddToCart = (product) => {
-    // ✅ GET FROM SESSION
     const token = sessionStorage.getItem("userToken");
     const user = JSON.parse(sessionStorage.getItem("user"));
     const userName = user?.email;
 
-    // ❌ NOT LOGGED IN
     if (!token || !userName) {
       Swal.fire({
         title: "Login Required 🔒",
         text: "Please login to add items to cart",
         icon: "warning",
-        confirmButtonText: "Login",
       }).then((res) => {
         if (res.isConfirmed) navigate("/login");
       });
       return;
     }
 
-    // ✅ USER-WISE CART
     const cartKey = `cart_${userName}`;
     let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
 
@@ -52,6 +48,14 @@ const UserProductsDisplay = () => {
     Swal.fire("Added to cart ✅");
   };
 
+  const handleBuy = () => {
+    Swal.fire({
+      title: "📲 Contact Dealer",
+      text: "Please contact the dealer through WhatsApp to buy this item",
+      icon: "info",
+    });
+  };
+
   return (
     <div className="user">
       <h1>Products</h1>
@@ -60,16 +64,24 @@ const UserProductsDisplay = () => {
         {products.map((p) => (
           <div className="card" key={p._id}>
             <img src={p.image.url} alt="" />
+
             <h3>{p.title}</h3>
             <p>{p.description}</p>
             <h4>₹{p.cost}</h4>
 
-            <button
-              className="cart-btn"
-              onClick={() => handleAddToCart(p)}
-            >
-              Add to Cart 🛒
-            </button>
+            {/* BUTTONS */}
+            <div className="btn-group">
+              <button
+                className="cart-btn"
+                onClick={() => handleAddToCart(p)}
+              >
+                Add to Cart 🛒
+              </button>
+
+              <button className="buy-btn" onClick={handleBuy}>
+                Buy Item
+              </button>
+            </div>
           </div>
         ))}
       </div>
