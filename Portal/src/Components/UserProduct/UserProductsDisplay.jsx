@@ -16,11 +16,10 @@ const UserProductsDisplay = () => {
     });
   }, []);
 
-  // 🔥 ADD TO CART WITH LOGIN CHECK
   const handleAddToCart = (product) => {
     const token = localStorage.getItem("token");
+    const userName = localStorage.getItem("userName");
 
-    // ❌ If not logged in
     if (!token) {
       Swal.fire({
         title: "Login Required 🔒",
@@ -33,7 +32,8 @@ const UserProductsDisplay = () => {
       return;
     }
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartKey = `cart_${userName}`;
+    let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
 
     const exists = cart.find((item) => item._id === product._id);
 
@@ -43,7 +43,7 @@ const UserProductsDisplay = () => {
     }
 
     cart.push(product);
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem(cartKey, JSON.stringify(cart));
 
     Swal.fire("Added to cart ✅");
   };

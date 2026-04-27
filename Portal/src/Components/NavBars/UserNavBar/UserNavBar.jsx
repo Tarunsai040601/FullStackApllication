@@ -24,12 +24,13 @@ const UserNavBar = () => {
   const [userName, setUserName] = useState("");
   const [cartCount, setCartCount] = useState(0);
 
-  // 🔥 CHECK LOGIN + CART COUNT
   useEffect(() => {
     const updateAll = () => {
       const token = localStorage.getItem("token");
       const name = localStorage.getItem("userName");
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      const cartKey = `cart_${name}`;
+      const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
 
       setIsLoggedIn(!!token);
       setUserName(name || "");
@@ -42,7 +43,6 @@ const UserNavBar = () => {
     return () => window.removeEventListener("storage", updateAll);
   }, []);
 
-  // 🔥 LOGIN
   const handleLogin = () => {
     Swal.fire({
       title: "Login Required 🔐",
@@ -55,7 +55,6 @@ const UserNavBar = () => {
     });
   };
 
-  // 🔥 LOGOUT
   const handleLogout = () => {
     Swal.fire({
       title: "Logout?",
@@ -70,6 +69,7 @@ const UserNavBar = () => {
 
         setIsLoggedIn(false);
         setUserName("");
+        setCartCount(0);
 
         Swal.fire("Logged out 👋");
 
@@ -80,40 +80,22 @@ const UserNavBar = () => {
 
   return (
     <nav className="navbar">
-      {/* 🔹 LOGO */}
       <div className="logo">
         <img src={titlepic} alt="logo" />
         <h2>PotiratesByCouples</h2>
       </div>
 
-      {/* 🔹 MENU ICON */}
       <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
         {menuOpen ? <FaTimes /> : <FaBars />}
       </div>
 
-      {/* 🔹 MENU LINKS */}
       <div className={`nav-links ${menuOpen ? "active" : ""}`}>
-        <NavLink to="/home">
-          <FaHome /> Home
-        </NavLink>
+        <NavLink to="/home"><FaHome /> Home</NavLink>
+        <NavLink to="/about"><FaInfoCircle /> About</NavLink>
+        <NavLink to="/services"><DiAndroid /> Services</NavLink>
+        <NavLink to="/reviews"><FcCustomerSupport /> Reviews</NavLink>
+        <NavLink to="/items"><IoCameraOutline /> Items</NavLink>
 
-        <NavLink to="/about">
-          <FaInfoCircle /> About
-        </NavLink>
-
-        <NavLink to="/services">
-          <DiAndroid /> Services
-        </NavLink>
-
-        <NavLink to="/reviews">
-          <FcCustomerSupport /> Reviews
-        </NavLink>
-
-        <NavLink to="/items">
-          <IoCameraOutline /> Items
-        </NavLink>
-
-        {/* 🔹 MOBILE LOGIN */}
         {isLoggedIn ? (
           <button className="mobile-login-btn" onClick={handleLogout}>
             <FaSignOutAlt /> Logout
@@ -125,23 +107,15 @@ const UserNavBar = () => {
         )}
       </div>
 
-      {/* 🔹 RIGHT SIDE */}
       <div className="nav-right">
-        {/* 🛒 CART */}
         <div className="cart" onClick={() => navigate("/cart")}>
           <FaShoppingCart />
-          {cartCount > 0 && (
-            <span className="cart-count">{cartCount}</span>
-          )}
+          {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
         </div>
 
-        {/* 👤 USER INFO */}
         {isLoggedIn && (
           <div className="user-info">
-            <span className="welcome-text">
-              Welcome: {userName} 👋
-            </span>
-
+            <span>Welcome: {userName} 👋</span>
             <img
               src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
               alt="user"
@@ -150,7 +124,6 @@ const UserNavBar = () => {
           </div>
         )}
 
-        {/* 🔹 LOGIN / LOGOUT BUTTON */}
         {isLoggedIn ? (
           <button className="login-btn logout" onClick={handleLogout}>
             <FaSignOutAlt /> Logout

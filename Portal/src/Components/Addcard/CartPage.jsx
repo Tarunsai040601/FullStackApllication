@@ -5,14 +5,20 @@ const CartPage = () => {
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("cart")) || [];
+    const userName = localStorage.getItem("userName");
+    const cartKey = `cart_${userName}`;
+
+    const data = JSON.parse(localStorage.getItem(cartKey)) || [];
     setCart(data);
   }, []);
 
   const handleDelete = (id) => {
+    const userName = localStorage.getItem("userName");
+    const cartKey = `cart_${userName}`;
+
     const updated = cart.filter((item) => item._id !== id);
     setCart(updated);
-    localStorage.setItem("cart", JSON.stringify(updated));
+    localStorage.setItem(cartKey, JSON.stringify(updated));
   };
 
   const total = cart.reduce((sum, item) => sum + Number(item.cost), 0);
