@@ -29,7 +29,7 @@ const AdminNavBar = () => {
 
   const navLinks = [
     { to: "/admindashboard/products", icon: <FiPackage />, label: "Products" },
-    { to: "/admindashboard/reviews", icon: <FiStar />, label: "Reviews" },
+    // { to: "/admindashboard/reviews", icon: <FiStar />, label: "Reviews" },
     { to: "/admindashboard/customer", icon: <FiUsers />, label: "Customers" },
   ];
 
