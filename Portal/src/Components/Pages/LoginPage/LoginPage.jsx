@@ -32,39 +32,32 @@ const LoginPage = () => {
         formData
       );
 
-      // ✅ STORE TOKEN + USER NAME
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("userName", res.data.user.email); // or name
+      const { user, token } = res.data;
 
-      Swal.fire({
-        title: "Welcome 🎉",
-        text: "Login successful!",
-        icon: "success",
-      }).then(() => {
-        if (res.data.user.role === "admin") {
-          navigate("/admindashboard");
-        } else {
-          navigate("/home");
-        }
-      });
+      // 🔥 ROLE BASED SESSION
+      if (user.role === "admin") {
+        sessionStorage.setItem("admin", JSON.stringify(user));
+        sessionStorage.setItem("adminToken", token);
+        navigate("/admindashboard");
+      } else {
+        sessionStorage.setItem("user", JSON.stringify(user));
+        sessionStorage.setItem("userToken", token);
+        navigate("/home");
+      }
+
+      Swal.fire("Login successful ✅");
 
     } catch (error) {
-      Swal.fire({
-        title: "Login Failed ❌",
-        text: error.response?.data?.message || "Something went wrong",
-        icon: "error",
-      });
+      Swal.fire("Login Failed ❌");
     }
   };
 
   return (
     <div className="login-container">
       <div className="login-card">
-
         <h2>Welcome Back</h2>
 
         <form onSubmit={handlerSubmit}>
-
           <input
             type="email"
             name="email"
@@ -105,7 +98,6 @@ const LoginPage = () => {
         <p>
           Don't have an account? <Link to="/register">Register</Link>
         </p>
-
       </div>
     </div>
   );

@@ -17,10 +17,13 @@ const UserProductsDisplay = () => {
   }, []);
 
   const handleAddToCart = (product) => {
-    const token = localStorage.getItem("token");
-    const userName = localStorage.getItem("userName");
+    // ✅ GET FROM SESSION
+    const token = sessionStorage.getItem("userToken");
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    const userName = user?.email;
 
-    if (!token) {
+    // ❌ NOT LOGGED IN
+    if (!token || !userName) {
       Swal.fire({
         title: "Login Required 🔒",
         text: "Please login to add items to cart",
@@ -32,6 +35,7 @@ const UserProductsDisplay = () => {
       return;
     }
 
+    // ✅ USER-WISE CART
     const cartKey = `cart_${userName}`;
     let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
 

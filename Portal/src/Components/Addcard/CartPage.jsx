@@ -4,23 +4,32 @@ import "./cart.css";
 const CartPage = () => {
   const [cart, setCart] = useState([]);
 
+  // ✅ GET USER NAME FROM SESSION
+  const getUserName = () => {
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    return user?.email || "guest";
+  };
+
   useEffect(() => {
-    const userName = localStorage.getItem("userName");
+    const userName = getUserName();
     const cartKey = `cart_${userName}`;
 
     const data = JSON.parse(localStorage.getItem(cartKey)) || [];
     setCart(data);
   }, []);
 
+  // ❌ DELETE ITEM
   const handleDelete = (id) => {
-    const userName = localStorage.getItem("userName");
+    const userName = getUserName();
     const cartKey = `cart_${userName}`;
 
     const updated = cart.filter((item) => item._id !== id);
+
     setCart(updated);
     localStorage.setItem(cartKey, JSON.stringify(updated));
   };
 
+  // 💰 TOTAL
   const total = cart.reduce((sum, item) => sum + Number(item.cost), 0);
 
   return (
@@ -44,7 +53,9 @@ const CartPage = () => {
             <tbody>
               {cart.map((item) => (
                 <tr key={item._id}>
-                  <td><img src={item.image.url} alt="" /></td>
+                  <td>
+                    <img src={item.image.url} alt="" />
+                  </td>
                   <td>{item.title}</td>
                   <td>₹{item.cost}</td>
                   <td>

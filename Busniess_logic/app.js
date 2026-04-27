@@ -6,6 +6,7 @@ const authRoutes = require("./Routers/AuthRouters/AuthRouters.js");
 
 const cors = require("cors");
 const adminPost = require("./Routers/adminPostRoutes/adminPosts.js");
+const review = require("./Routers/AdminReviewPosterRouter/Review.js");
 
 
 // initalisation the dotenv files
@@ -29,6 +30,8 @@ app.use("/api", authRoutes);
 
 // admin posts
 app.use("/api/data",adminPost)
+// admin review
+app.use("/api/reviews",review);
 
 // server function
 const server = () => {

@@ -14,7 +14,9 @@ const AdminNavBar = () => {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const userName = localStorage.getItem("userName") || "Admin";
+  // ✅ GET ADMIN DATA
+  const admin = JSON.parse(sessionStorage.getItem("admin"));
+  const userName = admin?.email || "Admin";
 
   const navLinks = [
     { to: "/admindashboard/products", icon: <FiPackage />, label: "Products" },
@@ -22,15 +24,17 @@ const AdminNavBar = () => {
     { to: "/admindashboard/customers", icon: <FiUsers />, label: "Customers" },
   ];
 
+  // 🔓 LOGOUT ONLY ADMIN
   const handleLogout = () => {
-    localStorage.clear();
+    sessionStorage.removeItem("admin");
+    sessionStorage.removeItem("adminToken");
     window.location.href = "/login";
   };
 
   return (
     <nav className="admin-navbar">
 
-      {/* ✅ BRAND CLICK → ADMIN HOME */}
+      {/* BRAND */}
       <Link to="/admindashboard" className="navbar-brand">
         <div className="brand-icon">🚀</div>
         <span className="brand-text">AdminPanel</span>
@@ -41,7 +45,7 @@ const AdminNavBar = () => {
         {menuOpen ? <FiX /> : <FiMenu />}
       </div>
 
-      {/* NAV LINKS */}
+      {/* LINKS */}
       <div className={`navbar-links ${menuOpen ? "active" : ""}`}>
         {navLinks.map(({ to, icon, label }) => (
           <Link
@@ -56,19 +60,23 @@ const AdminNavBar = () => {
         ))}
       </div>
 
-      {/* RIGHT SIDE */}
+      {/* RIGHT */}
       <div className="nav-right">
+
+        {/* USER */}
         <div className="user-box">
           <span>Welcome Admin: {userName}</span>
           <img
-            src={`https://ui-avatars.com/api/?name=${userName}&background=00f7ff&color=000`}
+            src={`https://ui-avatars.com/api/?name=${userName}`}
             alt="avatar"
           />
         </div>
 
+        {/* LOGOUT */}
         <button className="logout-btn" onClick={handleLogout}>
           <FiLogOut /> Logout
         </button>
+
       </div>
 
     </nav>

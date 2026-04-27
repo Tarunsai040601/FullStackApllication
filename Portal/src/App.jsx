@@ -10,11 +10,14 @@ import UserRegister from "./Components/Pages/RegisterPage/Register.jsx";
 import Services from "./Components/Services/Services.jsx";
 import UserProductsDisplay from "./Components/UserProduct/UserProductsDisplay.jsx";
 import CartPage from "./Components/Addcard/CartPage.jsx";
+import DisplayReviews from "./Components/DisplayReviews/DisplayReviews.jsx";
 
 /* ADMIN */
 import AdminLayout from "./Components/LayOuts/AdminLayout.jsx";
 import AdminHomepage from "./Components/AdminDashboard/HomePages/Adminhomepage.jsx";
 import AdminProducts from "./Components/AdminDashboard/AdminProducts/AdminProducts.jsx";
+import Reviews from "./Components/AdminDashboard/Reviews/Reviews.jsx";
+
 
 const App = () => {
   return (
@@ -32,15 +35,16 @@ const App = () => {
         <Route path="services" element={<Services />} />
         <Route path="items" element={<UserProductsDisplay />} />
         <Route path="cart" element={<CartPage />} />
+        <Route path="reviews" element={<DisplayReviews />} />
       </Route>
 
       {/* 🔐 ADMIN ROUTES */}
       <Route path="/admindashboard" element={<AdminLayout />}>
-        {/* ✅ MAIN PAGE */}
         <Route index element={<AdminHomepage />} />
-
-        {/* ✅ SUB PAGES */}
         <Route path="products" element={<AdminProducts />} />
+
+        {/* ✅ NEW ADMIN ROUTE */}
+        <Route path="reviews" element={<Reviews/>} />
       </Route>
 
     </Routes>

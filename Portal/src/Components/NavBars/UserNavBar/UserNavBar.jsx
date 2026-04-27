@@ -23,72 +23,95 @@ const UserNavBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
   const [cartCount, setCartCount] = useState(0);
+  const [greeting, setGreeting] = useState("");
+
+  // 🔥 Greeting function
+  const getGreeting = () => {
+    const h = new Date().getHours();
+    if (h >= 5 && h < 12) return "Good Morning 🌅";
+    if (h >= 12 && h < 17) return "Good Afternoon ☀️";
+    if (h >= 17 && h < 21) return "Good Evening 🌆";
+    return "Good Night 🌙";
+  };
 
   useEffect(() => {
     const updateAll = () => {
-      const token = localStorage.getItem("token");
-      const name = localStorage.getItem("userName");
+      const token = sessionStorage.getItem("userToken");
+      const user = JSON.parse(sessionStorage.getItem("user"));
 
+      const name = user?.email || "";
       const cartKey = `cart_${name}`;
       const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
 
       setIsLoggedIn(!!token);
-      setUserName(name || "");
+      setUserName(name);
       setCartCount(cart.length);
+      setGreeting(getGreeting());
     };
 
     updateAll();
 
+    const interval = setInterval(() => {
+      setGreeting(getGreeting());
+    }, 60000);
+
     window.addEventListener("storage", updateAll);
-    return () => window.removeEventListener("storage", updateAll);
+
+    return () => {
+      window.removeEventListener("storage", updateAll);
+      clearInterval(interval);
+    };
   }, []);
 
+  // 🔐 Login
   const handleLogin = () => {
     Swal.fire({
       title: "Login Required 🔐",
       text: "Do you want to login?",
       icon: "question",
       showCancelButton: true,
-      confirmButtonText: "Yes",
     }).then((res) => {
       if (res.isConfirmed) navigate("/login");
     });
   };
 
+  // 🔓 Logout (ONLY USER)
   const handleLogout = () => {
     Swal.fire({
       title: "Logout?",
-      text: "Are you sure?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Yes",
     }).then((res) => {
       if (res.isConfirmed) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("userName");
+        sessionStorage.removeItem("user");
+        sessionStorage.removeItem("userToken");
 
         setIsLoggedIn(false);
         setUserName("");
         setCartCount(0);
 
-        Swal.fire("Logged out 👋");
-
-        navigate("/");
+        navigate("/login");
       }
     });
   };
 
+  const formattedName =
+    userName ? userName.charAt(0).toUpperCase() + userName.slice(1) : "";
+
   return (
     <nav className="navbar">
+      {/* LOGO */}
       <div className="logo">
         <img src={titlepic} alt="logo" />
         <h2>PotiratesByCouples</h2>
       </div>
 
+      {/* MENU ICON */}
       <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
         {menuOpen ? <FaTimes /> : <FaBars />}
       </div>
 
+      {/* LINKS */}
       <div className={`nav-links ${menuOpen ? "active" : ""}`}>
         <NavLink to="/home"><FaHome /> Home</NavLink>
         <NavLink to="/about"><FaInfoCircle /> About</NavLink>
@@ -107,15 +130,18 @@ const UserNavBar = () => {
         )}
       </div>
 
+      {/* RIGHT */}
       <div className="nav-right">
+        {/* CART */}
         <div className="cart" onClick={() => navigate("/cart")}>
           <FaShoppingCart />
           {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
         </div>
 
+        {/* USER */}
         {isLoggedIn && (
           <div className="user-info">
-            <span>Welcome: {userName} 👋</span>
+            <span>{greeting}, {formattedName} 👋</span>
             <img
               src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
               alt="user"
@@ -124,6 +150,7 @@ const UserNavBar = () => {
           </div>
         )}
 
+        {/* LOGIN / LOGOUT */}
         {isLoggedIn ? (
           <button className="login-btn logout" onClick={handleLogout}>
             <FaSignOutAlt /> Logout

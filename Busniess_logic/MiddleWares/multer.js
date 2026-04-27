@@ -5,8 +5,9 @@ const cloudinary = require("../Configurations/cloudinary");
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "admin_posts",
-    allowed_formats: ["jpg", "png", "jpeg"],
+    folder: "admin_reviews",
+    resource_type: "video", // 🔥 IMPORTANT
+    allowed_formats: ["mp4", "mov", "avi"], // video formats
   },
 });
 
