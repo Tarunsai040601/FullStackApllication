@@ -17,6 +17,7 @@ import Location from './Components/Loaction/Location.jsx'
 import AdminLayout from "./Components/LayOuts/AdminLayout.jsx";
 import AdminHomepage from "./Components/AdminDashboard/HomePages/Adminhomepage.jsx";
 import AdminProducts from "./Components/AdminDashboard/AdminProducts/AdminProducts.jsx";
+import Customers from "./Components/AdminDashboard/Customers/Customers.jsx";
 
 
 
@@ -44,8 +45,10 @@ const App = () => {
       <Route path="/admindashboard" element={<AdminLayout />}>
         <Route index element={<AdminHomepage />} />
         <Route path="products" element={<AdminProducts />} />
+        <Route path="customer" element={<Customers/>} />
 
-        {/* ✅ NEW ADMIN ROUTE */}
+
+        
         
       </Route>
 
