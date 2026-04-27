@@ -18,9 +18,9 @@ const AdminNavBar = () => {
   const userName = localStorage.getItem("userName") || "Admin";
 
   const navLinks = [
-    { to: "/admin-dashboard/products", icon: <FiPackage />, label: "Products" },
-    { to: "/admin-dashboard/reviews", icon: <FiStar />, label: "Reviews" },
-    { to: "/admin-dashboard/customers", icon: <FiUsers />, label: "Customers" },
+    { to: "/admindashboard/products", icon: <FiPackage />, label: "Products" },
+    { to: "/admindashboard/reviews", icon: <FiStar />, label: "Reviews" },
+    { to: "/admindashboard/customers", icon: <FiUsers />, label: "Customers" },
   ];
 
   const handleLogout = () => {

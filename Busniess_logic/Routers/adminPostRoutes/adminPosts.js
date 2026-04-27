@@ -1,54 +1,24 @@
 const express = require("express");
+const router = express.Router();
 
 const {
-  postFetching,
-  postData,
   postFetch,
+  postData,
   postUpdate,
+  postFetching,
   PostDelete,
 } = require("../../Services/adminController/adminPostController");
 
 const authmiddleware = require("../../MiddleWares/AuthMiddle/Auth.js");
-const roleMiddleware = require("../../MiddleWares/AuthMiddle/RoleMiddleware.js");
-const upload = require("../../MiddleWares/multer");
+const upload = require("../../MiddleWares/multer"); // multer config
 
-const adminPost = express.Router();
+// 🔓 Public (for users)
+router.get("/post", postFetching);
+router.get("/post/:id", postFetch);
 
-// Public route
-adminPost.get("/data/post", postFetching);
+// 🔐 Admin only
+router.post("/post", authmiddleware, upload.single("image"), postData);
+router.put("/update/:id", authmiddleware, upload.single("image"), postUpdate);
+router.delete("/delete/:id", authmiddleware, PostDelete);
 
-// POST
-adminPost.post(
-  "/data/post",
-  authmiddleware,
-  roleMiddleware("admin"),
-  upload.single("image"),  // ✅ MUST
-  postData
-);
-
-// GET BY ID
-adminPost.get(
-  "/data/post/:id",
-  authmiddleware,
-  roleMiddleware("admin"),
-  postFetch
-);
-
-// UPDATE
-adminPost.patch(
-  "/data/post/:id",
-  authmiddleware,
-  roleMiddleware("admin"),
-  upload.single("image"),
-  postUpdate
-);
-
-// DELETE
-adminPost.delete(
-  "/data/post/:id",
-  authmiddleware,
-  roleMiddleware("admin"),
-  PostDelete
-);
-
-module.exports = adminPost;
+module.exports = router;

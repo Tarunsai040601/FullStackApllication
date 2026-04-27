@@ -195,3 +195,104 @@
     display: block;   
   }
 }
+
+
+/* updated */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #d2a679;
+  padding: 10px 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  width: 40px;
+  border-radius: 50%;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: black;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* 🛒 CART */
+.cart {
+  position: relative;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+/* 👤 USER */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-avatar {
+  width: 35px;
+  border-radius: 50%;
+}
+
+/* 🔘 BUTTON */
+.login-btn {
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  background: white;
+}
+
+.logout {
+  background: red;
+  color: white;
+}
+
+/* 📱 MOBILE */
+.menu-icon {
+  display: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+}

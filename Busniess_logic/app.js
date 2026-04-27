@@ -28,7 +28,7 @@ app.use(cors());
 app.use("/api", authRoutes);
 
 // admin posts
-app.use("/api",adminPost)
+app.use("/api/data",adminPost)
 
 // server function
 const server = () => {

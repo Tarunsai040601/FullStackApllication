@@ -7,7 +7,7 @@ import {
   FaSignInAlt,
   FaBars,
   FaTimes,
-  FaSignOutAlt
+  FaSignOutAlt,
 } from "react-icons/fa";
 import { FcCustomerSupport } from "react-icons/fc";
 import { DiAndroid } from "react-icons/di";
@@ -18,88 +18,102 @@ import titlepic from "../../../assets/images/titlepic.jpg";
 
 const UserNavBar = () => {
   const navigate = useNavigate();
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
+  const [cartCount, setCartCount] = useState(0);
 
+  // 🔥 CHECK LOGIN + CART COUNT
   useEffect(() => {
-    const checkLogin = () => {
+    const updateAll = () => {
       const token = localStorage.getItem("token");
       const name = localStorage.getItem("userName");
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
       setIsLoggedIn(!!token);
       setUserName(name || "");
+      setCartCount(cart.length);
     };
 
-    checkLogin();
-    window.addEventListener("storage", checkLogin);
+    updateAll();
 
-    return () => window.removeEventListener("storage", checkLogin);
+    window.addEventListener("storage", updateAll);
+    return () => window.removeEventListener("storage", updateAll);
   }, []);
 
+  // 🔥 LOGIN
   const handleLogin = () => {
     Swal.fire({
-      title: "Are you sure?",
+      title: "Login Required 🔐",
       text: "Do you want to login?",
       icon: "question",
       showCancelButton: true,
       confirmButtonText: "Yes",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate("/login");
-      }
+    }).then((res) => {
+      if (res.isConfirmed) navigate("/login");
     });
   };
 
+  // 🔥 LOGOUT
   const handleLogout = () => {
     Swal.fire({
-      title: "Are you sure?",
-      text: "Do you want to logout?",
+      title: "Logout?",
+      text: "Are you sure?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Yes",
-    }).then((result) => {
-      if (result.isConfirmed) {
+    }).then((res) => {
+      if (res.isConfirmed) {
         localStorage.removeItem("token");
         localStorage.removeItem("userName");
 
         setIsLoggedIn(false);
         setUserName("");
 
-        Swal.fire({
-          title: "Logged out 👋",
-          icon: "success",
-        }).then(() => {
-          navigate("/");
-        });
+        Swal.fire("Logged out 👋");
+
+        navigate("/");
       }
     });
   };
 
   return (
     <nav className="navbar">
-
-      {/* LOGO */}
+      {/* 🔹 LOGO */}
       <div className="logo">
         <img src={titlepic} alt="logo" />
         <h2>PotiratesByCouples</h2>
       </div>
 
-      {/* MENU ICON */}
+      {/* 🔹 MENU ICON */}
       <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
         {menuOpen ? <FaTimes /> : <FaBars />}
       </div>
 
-      {/* MENU */}
+      {/* 🔹 MENU LINKS */}
       <div className={`nav-links ${menuOpen ? "active" : ""}`}>
+        <NavLink to="/home">
+          <FaHome /> Home
+        </NavLink>
 
-        <NavLink to="/home"><FaHome /> Home</NavLink>
-        <NavLink to="/about"><FaInfoCircle /> About</NavLink>
-        <NavLink to="/services"><DiAndroid /> Services</NavLink>
-        <NavLink to="/reviews"><FcCustomerSupport /> Reviews</NavLink>
-        <NavLink to="/items"><IoCameraOutline /> Items</NavLink>
+        <NavLink to="/about">
+          <FaInfoCircle /> About
+        </NavLink>
 
-        {/* MOBILE LOGIN */}
+        <NavLink to="/services">
+          <DiAndroid /> Services
+        </NavLink>
+
+        <NavLink to="/reviews">
+          <FcCustomerSupport /> Reviews
+        </NavLink>
+
+        <NavLink to="/items">
+          <IoCameraOutline /> Items
+        </NavLink>
+
+        {/* 🔹 MOBILE LOGIN */}
         {isLoggedIn ? (
           <button className="mobile-login-btn" onClick={handleLogout}>
             <FaSignOutAlt /> Logout
@@ -109,33 +123,36 @@ const UserNavBar = () => {
             <FaSignInAlt /> Login
           </button>
         )}
-
       </div>
 
-      {/* RIGHT SIDE */}
+      {/* 🔹 RIGHT SIDE */}
       <div className="nav-right">
-        <div className="cart">
+        {/* 🛒 CART */}
+        <div className="cart" onClick={() => navigate("/cart")}>
           <FaShoppingCart />
+          {cartCount > 0 && (
+            <span className="cart-count">{cartCount}</span>
+          )}
         </div>
 
-        {/* ✅ Welcome Name */}
+        {/* 👤 USER INFO */}
         {isLoggedIn && (
-  <div className="user-info">
-   
-    <span className="welcome-text">
-      Welcome: {userName} 👋
-    </span>
-     <img
-      src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTEwL3Jhd3BpeGVsb2ZmaWNlN18zZF9zdHlsZV9ib3lfc2F5aW5nX2hlbGxvX3dp
-      dGhfc21pbGVfaXNvbGF0ZWRfb19kM2ZkNjFkZC00M2M0LTQ0NDEtOWE5MC1mYzQ0MTNlNjBhNTRfMS5wbmc.png"  // 🔥 cartoon image
-      alt="user"
-      className="user-avatar"
-    />
-  </div>
-)}
+          <div className="user-info">
+            <span className="welcome-text">
+              Welcome: {userName} 👋
+            </span>
 
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
+              alt="user"
+              className="user-avatar"
+            />
+          </div>
+        )}
+
+        {/* 🔹 LOGIN / LOGOUT BUTTON */}
         {isLoggedIn ? (
-          <button className="login-btn" onClick={handleLogout} style={{backgroundColor:"red",color:"white"}}>
+          <button className="login-btn logout" onClick={handleLogout}>
             <FaSignOutAlt /> Logout
           </button>
         ) : (
@@ -144,7 +161,6 @@ const UserNavBar = () => {
           </button>
         )}
       </div>
-
     </nav>
   );
 };

@@ -1,87 +1,67 @@
 const portSchem = require("../../Models/AdminPosts/adminPostSchema.js");
 const cloudinary = require("../../Configurations/cloudinary");
+
+// 🔹 GET ALL
 const postFetching = async (req, res) => {
   try {
-    const display = await portSchem.find();
-    res.status(200).json({ message: "fetching data", data: display });
+    const data = await portSchem.find();
+    res.status(200).json({ data });
   } catch (error) {
-    res.status(400).json({ message: "something went wrong", err_mess: error });
+    res.status(400).json({ message: error.message });
   }
 };
 
+// 🔹 CREATE
 const postData = async (req, res) => {
- try {
-  const { title, description, cost } = req.body;
-
-  if (!req.file) {
-    return res.status(400).json({
-      message: "Image is required ❌",
-    });
-  }
-
-  const newPost = new portSchem({
-    title,
-    description,
-    cost,
-    image: {
-      url: req.file.path,
-      public_id: req.file.filename,
-    },
-  });
-
-  await newPost.save();
-
-  res.status(201).json({
-    message: "Post created ✅",
-    data: newPost,
-  });
-} catch (error) {
-  res.status(500).json({ message: error.message });
-}
-};
-
-const postFetch = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { title, description, cost } = req.body;
 
-    const post = await portSchem.findById(id);
-
-    if (!post) {
-      return res.status(404).json({
-        message: "Post not found ❌",
-      });
+    if (!req.file) {
+      return res.status(400).json({ message: "Image required ❌" });
     }
 
-    res.status(200).json({
-      message: "Post fetched successfully ✅",
-      data: post,
+    const newPost = new portSchem({
+      title,
+      description,
+      cost,
+      image: {
+        url: req.file.path,
+        public_id: req.file.filename,
+      },
     });
+
+    await newPost.save();
+
+    res.status(201).json({ data: newPost });
   } catch (error) {
-    res.status(500).json({
-      message: "Something went wrong ❌",
-      error: error.message,
-    });
+    res.status(500).json({ message: error.message });
   }
 };
 
+// 🔹 GET SINGLE
+const postFetch = async (req, res) => {
+  try {
+    const post = await portSchem.findById(req.params.id);
+    res.status(200).json({ data: post });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// 🔹 UPDATE
 const postUpdate = async (req, res) => {
   try {
-    const { id } = req.params;
+    const post = await portSchem.findById(req.params.id);
+    if (!post) return res.status(404).json({ message: "Not found" });
 
-    const post = await portSchem.findById(id);
-    if (!post) return res.status(404).json({ message: "Post not found" });
-
-    // 🔥 delete old image
     if (req.file && post.image.public_id) {
       await cloudinary.uploader.destroy(post.image.public_id);
     }
 
-    // update fields
     post.title = req.body.title || post.title;
     post.description = req.body.description || post.description;
     post.cost = req.body.cost || post.cost;
 
-    // new image
     if (req.file) {
       post.image = {
         url: req.file.path,
@@ -91,32 +71,24 @@ const postUpdate = async (req, res) => {
 
     await post.save();
 
-    res.status(200).json({
-      message: "Post updated ✅",
-      data: post,
-    });
+    res.status(200).json({ data: post });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
+// 🔹 DELETE
 const PostDelete = async (req, res) => {
   try {
-    const { id } = req.params;
+    const post = await portSchem.findById(req.params.id);
 
-    const post = await portSchem.findById(id);
-    if (!post) return res.status(404).json({ message: "Post not found" });
-
-    // 🔥 delete image from cloudinary
-    if (post.image.public_id) {
+    if (post?.image?.public_id) {
       await cloudinary.uploader.destroy(post.image.public_id);
     }
 
-    await Post.findByIdAndDelete(id);
+    await portSchem.findByIdAndDelete(req.params.id);
 
-    res.status(200).json({
-      message: "Post deleted ✅",
-    });
+    res.status(200).json({ message: "Deleted ✅" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
