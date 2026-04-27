@@ -25,13 +25,13 @@ const UserNavBar = () => {
   const [cartCount, setCartCount] = useState(0);
   const [greeting, setGreeting] = useState("");
 
-  // 🔥 Greeting function
+  // Greeting
   const getGreeting = () => {
     const h = new Date().getHours();
     if (h >= 5 && h < 12) return " Good Morning 🌅 ";
-    if (h >= 12 && h < 17) return " Good Afternoon☀️ ";
-    if (h >= 17 && h < 21) return " Good Evening🌆";
-    return "🌙 Good Night";
+    if (h >= 12 && h < 17) return " Good Afternoon ☀️ ";
+    if (h >= 17 && h < 21) return " Good Evening 🌆";
+    return " Good Night 🌙";
   };
 
   useEffect(() => {
@@ -39,8 +39,11 @@ const UserNavBar = () => {
       const token = sessionStorage.getItem("userToken");
       const user = JSON.parse(sessionStorage.getItem("user"));
 
-      const name = user?.email || "";
-      const cartKey = `cart_${name}`;
+      // ✅ NAME FIX (IMPORTANT CHANGE)
+      const name = user?.name || user?.username || user?.email || "";
+      const email = user?.email || "";
+
+      const cartKey = `cart_${email}`;
       const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
 
       setIsLoggedIn(!!token);
@@ -63,10 +66,10 @@ const UserNavBar = () => {
     };
   }, []);
 
-  // 🔐 Login
+  // Login
   const handleLogin = () => {
     Swal.fire({
-      title: "Hey dude Login Required 🔐",
+      title: "Login Required 🔐",
       text: "Do you want to login?",
       icon: "question",
       showCancelButton: true,
@@ -75,10 +78,10 @@ const UserNavBar = () => {
     });
   };
 
-  // 🔓 Logout
+  // Logout
   const handleLogout = () => {
     Swal.fire({
-      title: "TATA BYE BYE...!",
+      title: "Logged Out",
       icon: "warning",
       showCancelButton: true,
     }).then((res) => {
@@ -106,29 +109,28 @@ const UserNavBar = () => {
         <h2>PotiratesByCouples</h2>
       </div>
 
-      {/* HAMBURGER ICON */}
+      {/* MENU ICON */}
       <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
         {menuOpen ? <FaTimes /> : <FaBars />}
       </div>
 
-      {/* NAV LINKS — Desktop + Mobile toggle menu */}
+      {/* NAV LINKS */}
       <div className={`nav-links ${menuOpen ? "active" : ""}`}>
 
-        {/* Page Links */}
         <NavLink to="/home" onClick={() => setMenuOpen(false)}><FaHome /> Home</NavLink>
         <NavLink to="/about" onClick={() => setMenuOpen(false)}><FaInfoCircle /> About</NavLink>
         <NavLink to="/services" onClick={() => setMenuOpen(false)}><DiAndroid /> Services</NavLink>
         <NavLink to="/reviews" onClick={() => setMenuOpen(false)}><FcCustomerSupport /> Reviews</NavLink>
         <NavLink to="/items" onClick={() => setMenuOpen(false)}><IoCameraOutline /> Items</NavLink>
 
-        {/* ✅ MOBILE ONLY — Cart with badge */}
+        {/* MOBILE CART */}
         <div className="mobile-cart" onClick={() => { navigate("/cart"); setMenuOpen(false); }}>
           <FaShoppingCart />
           {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
-          <span style={{ fontSize: "14px", fontWeight: "bold" }}>Cart</span>
+          <span>Cart</span>
         </div>
 
-        {/* ✅ MOBILE ONLY — Welcome name + avatar */}
+        {/* MOBILE USER */}
         {isLoggedIn && (
           <div className="mobile-user">
             <img
@@ -141,7 +143,7 @@ const UserNavBar = () => {
           </div>
         )}
 
-        {/* ✅ MOBILE ONLY — Login / Logout button */}
+        {/* LOGIN / LOGOUT */}
         {isLoggedIn ? (
           <button className="mobile-login-btn logout" onClick={handleLogout}>
             <FaSignOutAlt /> Logout
@@ -153,18 +155,17 @@ const UserNavBar = () => {
         )}
       </div>
 
-      {/* ✅ DESKTOP ONLY — Right section */}
+      {/* RIGHT SIDE DESKTOP */}
       <div className="nav-right">
-        {/* Cart */}
+
         <div className="cart" onClick={() => navigate("/cart")}>
           <FaShoppingCart />
           {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
         </div>
 
-        {/* Welcome name */}
         {isLoggedIn && (
           <div className="user-info">
-            <span>WelCome: Hi..! 👋 {formattedName}, {greeting}</span>
+            <span>Welcome:Hi..! 👋 {formattedName}, {greeting}</span>
             <img
               src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
               alt="user"
@@ -173,7 +174,6 @@ const UserNavBar = () => {
           </div>
         )}
 
-        {/* Login / Logout */}
         {isLoggedIn ? (
           <button className="login-btn logout" onClick={handleLogout}>
             <FaSignOutAlt /> Logout
