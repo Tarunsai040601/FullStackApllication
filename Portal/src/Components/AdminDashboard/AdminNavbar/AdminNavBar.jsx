@@ -14,7 +14,6 @@ const AdminNavBar = () => {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // 👤 Get user from localStorage
   const userName = localStorage.getItem("userName") || "Admin";
 
   const navLinks = [
@@ -31,13 +30,13 @@ const AdminNavBar = () => {
   return (
     <nav className="admin-navbar">
 
-      {/* BRAND */}
-      <Link to="/admin-dashboard" className="navbar-brand">
+      {/* ✅ BRAND CLICK → ADMIN HOME */}
+      <Link to="/admindashboard" className="navbar-brand">
         <div className="brand-icon">🚀</div>
         <span className="brand-text">AdminPanel</span>
       </Link>
 
-      {/* MOBILE TOGGLE */}
+      {/* MOBILE MENU */}
       <div className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
         {menuOpen ? <FiX /> : <FiMenu />}
       </div>
@@ -57,10 +56,8 @@ const AdminNavBar = () => {
         ))}
       </div>
 
-      {/* RIGHT SECTION */}
+      {/* RIGHT SIDE */}
       <div className="nav-right">
-
-        {/* 👤 USER */}
         <div className="user-box">
           <span>Welcome Admin: {userName}</span>
           <img
@@ -69,11 +66,9 @@ const AdminNavBar = () => {
           />
         </div>
 
-        {/* LOGOUT */}
         <button className="logout-btn" onClick={handleLogout}>
           <FiLogOut /> Logout
         </button>
-
       </div>
 
     </nav>
