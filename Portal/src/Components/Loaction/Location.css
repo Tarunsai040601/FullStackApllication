@@ -1,0 +1,37 @@
+.location-section {
+  padding: 50px 20px;
+  /* background-color: #f5f5f5; */
+}
+
+.location-heading {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.location-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Address details */
+.location-details {
+  flex: 1 1 300px;
+  max-width: 500px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Map */
+.location-map {
+  flex: 1 1 300px;
+  min-width: 300px;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}

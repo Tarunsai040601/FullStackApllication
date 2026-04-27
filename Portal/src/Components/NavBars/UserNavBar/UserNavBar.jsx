@@ -28,10 +28,10 @@ const UserNavBar = () => {
   // 🔥 Greeting function
   const getGreeting = () => {
     const h = new Date().getHours();
-    if (h >= 5 && h < 12) return "Good Morning 🌅";
-    if (h >= 12 && h < 17) return "Good Afternoon ☀️";
-    if (h >= 17 && h < 21) return "Good Evening 🌆";
-    return "Good Night 🌙";
+    if (h >= 5 && h < 12) return " Good Morning 🌅 ";
+    if (h >= 12 && h < 17) return " Good Afternoon☀️ ";
+    if (h >= 17 && h < 21) return " Good Evening🌆";
+    return "🌙 Good Night";
   };
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const UserNavBar = () => {
     });
   };
 
-  // 🔓 Logout (ONLY USER)
+  // 🔓 Logout
   const handleLogout = () => {
     Swal.fire({
       title: "Logout?",
@@ -106,21 +106,44 @@ const UserNavBar = () => {
         <h2>PotiratesByCouples</h2>
       </div>
 
-      {/* MENU ICON */}
+      {/* HAMBURGER ICON */}
       <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
         {menuOpen ? <FaTimes /> : <FaBars />}
       </div>
 
-      {/* LINKS */}
+      {/* NAV LINKS — Desktop + Mobile toggle menu */}
       <div className={`nav-links ${menuOpen ? "active" : ""}`}>
-        <NavLink to="/home"><FaHome /> Home</NavLink>
-        <NavLink to="/about"><FaInfoCircle /> About</NavLink>
-        <NavLink to="/services"><DiAndroid /> Services</NavLink>
-        <NavLink to="/reviews"><FcCustomerSupport /> Reviews</NavLink>
-        <NavLink to="/items"><IoCameraOutline /> Items</NavLink>
 
+        {/* Page Links */}
+        <NavLink to="/home" onClick={() => setMenuOpen(false)}><FaHome /> Home</NavLink>
+        <NavLink to="/about" onClick={() => setMenuOpen(false)}><FaInfoCircle /> About</NavLink>
+        <NavLink to="/services" onClick={() => setMenuOpen(false)}><DiAndroid /> Services</NavLink>
+        <NavLink to="/reviews" onClick={() => setMenuOpen(false)}><FcCustomerSupport /> Reviews</NavLink>
+        <NavLink to="/items" onClick={() => setMenuOpen(false)}><IoCameraOutline /> Items</NavLink>
+
+        {/* ✅ MOBILE ONLY — Cart with badge */}
+        <div className="mobile-cart" onClick={() => { navigate("/cart"); setMenuOpen(false); }}>
+          <FaShoppingCart />
+          {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+          <span style={{ fontSize: "14px", fontWeight: "bold" }}>Cart</span>
+        </div>
+
+        {/* ✅ MOBILE ONLY — Welcome name + avatar */}
+        {isLoggedIn && (
+          <div className="mobile-user">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
+              alt="user"
+              className="user-avatar"
+            />
+            <span>Hi..! 👋 {formattedName}</span>
+            <span>{greeting}</span>
+          </div>
+        )}
+
+        {/* ✅ MOBILE ONLY — Login / Logout button */}
         {isLoggedIn ? (
-          <button className="mobile-login-btn" onClick={handleLogout}>
+          <button className="mobile-login-btn logout" onClick={handleLogout}>
             <FaSignOutAlt /> Logout
           </button>
         ) : (
@@ -130,18 +153,18 @@ const UserNavBar = () => {
         )}
       </div>
 
-      {/* RIGHT */}
+      {/* ✅ DESKTOP ONLY — Right section */}
       <div className="nav-right">
-        {/* CART */}
+        {/* Cart */}
         <div className="cart" onClick={() => navigate("/cart")}>
           <FaShoppingCart />
           {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
         </div>
 
-        {/* USER */}
+        {/* Welcome name */}
         {isLoggedIn && (
           <div className="user-info">
-            <span>{greeting}, {formattedName} 👋</span>
+            <span>WelCome: Hi..! 👋 {formattedName}, {greeting}</span>
             <img
               src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
               alt="user"
@@ -150,7 +173,7 @@ const UserNavBar = () => {
           </div>
         )}
 
-        {/* LOGIN / LOGOUT */}
+        {/* Login / Logout */}
         {isLoggedIn ? (
           <button className="login-btn logout" onClick={handleLogout}>
             <FaSignOutAlt /> Logout

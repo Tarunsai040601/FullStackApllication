@@ -2,6 +2,7 @@ import React from 'react';
 import './Services.css';
 import { FaSeedling, FaGift, FaTruck, FaPalette, FaHeart, FaBirthdayCake, FaRibbon, FaHome, FaBoxOpen, FaLightbulb } from 'react-icons/fa';
 import Fotter from '../Fotter/Fotter.jsx'
+import Location from '../Loaction/Location.jsx'
 
 const servicesData = [
   {
@@ -71,6 +72,7 @@ const Services = () => {
         ))}
       </div>
     </div>
+    <Location/>
   <Fotter/>
     </div>
   );

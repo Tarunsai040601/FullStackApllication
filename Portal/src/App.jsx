@@ -10,6 +10,7 @@ import UserRegister from "./Components/Pages/RegisterPage/Register.jsx";
 import Services from "./Components/Services/Services.jsx";
 import UserProductsDisplay from "./Components/UserProduct/UserProductsDisplay.jsx";
 import CartPage from "./Components/Addcard/CartPage.jsx";
+import Location from './Components/Loaction/Location.jsx'
 
 
 /* ADMIN */
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="services" element={<Services />} />
         <Route path="items" element={<UserProductsDisplay />} />
         <Route path="cart" element={<CartPage />} />
+        <Route element={<Location/>}/>
         
       </Route>
 

@@ -1,0 +1,41 @@
+.whatsapp-button {
+  width: 60px;
+  height: 60px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 50%;
+  z-index: 999;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.whatsapp-button:hover {
+  transform: scale(1.1);
+}
+
+/* 💬 POPUP */
+.wa-popup {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  background: #25d366;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 14px;
+  z-index: 1000;
+  animation: fadeIn 0.5s ease;
+}
+
+/* animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -3,6 +3,7 @@ import axios from "axios";
 import "./UserProducts.css";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import Footer from "../Fotter/Fotter";
 
 const API = "http://localhost:4000/api/data";
 
@@ -57,6 +58,7 @@ const UserProductsDisplay = () => {
   };
 
   return (
+    <>
     <div className="user">
       <h1>Products</h1>
 
@@ -85,7 +87,10 @@ const UserProductsDisplay = () => {
           </div>
         ))}
       </div>
+     
     </div>
+     <Footer/>
+    </>
   );
 };
 

@@ -1,9 +1,15 @@
-/* NAVBAR */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ================= NAVBAR ================= */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 40px;
+  padding: 15px 25px;
   background-color: burlywood;
   color: darkred;
   position: sticky;
@@ -11,7 +17,7 @@
   z-index: 1000;
 }
 
-/* LOGO */
+/* ================= LOGO ================= */
 .logo {
   display: flex;
   align-items: center;
@@ -21,25 +27,21 @@
 .logo img {
   width: 40px;
   height: 40px;
-  transition: 0.3s;
+  border-radius: 50%;
 }
 
 .logo h2 {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
 }
 
-.logo img:hover {
-  transform: rotate(10deg) scale(1.1);
-}
-
-/* NAV LINKS */
+/* ================= NAV LINKS (DESKTOP) ================= */
 .nav-links {
   display: flex;
   gap: 25px;
+  align-items: center;
 }
 
-/* LINKS */
 .nav-links a {
   text-decoration: none;
   color: inherit;
@@ -47,10 +49,8 @@
   align-items: center;
   gap: 6px;
   position: relative;
-  transition: 0.3s;
 }
 
-/* HOVER */
 .nav-links a::after {
   content: "";
   width: 0%;
@@ -66,174 +66,14 @@
   width: 100%;
 }
 
-.nav-links a:hover {
-  transform: translateY(-2px);
-}
-
-/* ACTIVE */
-.active-link {
-  color: yellow;
-  font-weight: bold;
-}
-
-/* RIGHT SIDE */
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-/* CART */
-.cart {
-  font-size: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.cart:hover {
-  transform: scale(1.2);
-}
-
-/* DESKTOP BUTTON */
-.login-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 20px;
-  background: white;
-  color: #6c63ff;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.login-btn:hover {
-  background: #f0f0f0;
-  transform: scale(1.05);
-}
-
-/* MOBILE LOGIN BUTTON */
-.mobile-login-btn {
-  background: white;
-  color: #6c63ff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-weight: bold;
-  cursor: pointer;
-  display:none
-}
-
-
-/* USER INFO CONTAINER */
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* PROFILE IMAGE */
-.user-avatar {
-  width: 40px;       /* medium size */
-  height: 40px;
-  border-radius: 50%;  /* 🔥 circle */
-  object-fit: cover;
-  border: 2px solid white;
-}
-
-/* TEXT */
-.welcome-text {
-  font-weight: bold;
-  color: darkblue;
-}
-
-/* HAMBURGER */
-.menu-icon {
-  display: none;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-
-  .menu-icon {
-    display: block;
-    color: white;
-  }
-
-  .nav-links {
-    position: absolute;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    background-color: burlywood;
-    color: #f0f0f0;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    padding: 20px 0;
-
-    transform: translateY(-150%);
-    opacity: 0;
-    pointer-events: none;
-    transition: 0.4s ease;
-  }
-
-  .nav-links.active {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .nav-right {
-    display: none;
-  }
-  .mobile-login-btn {
-    display: block;   
-  }
-}
-
-
-/* updated */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #d2a679;
-  padding: 10px 20px;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo img {
-  width: 40px;
-  border-radius: 50%;
-}
-
-.nav-links {
-  display: flex;
-  gap: 20px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: black;
-}
-
+/* ================= RIGHT SIDE (DESKTOP) ================= */
 .nav-right {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-/* 🛒 CART */
+/* ================= CART ================= */
 .cart {
   position: relative;
   font-size: 20px;
@@ -251,7 +91,7 @@
   border-radius: 50%;
 }
 
-/* 👤 USER */
+/* ================= USER ================= */
 .user-info {
   display: flex;
   align-items: center;
@@ -259,16 +99,22 @@
 }
 
 .user-avatar {
-  width: 35px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
-/* 🔘 BUTTON */
-.login-btn {
-  padding: 6px 12px;
+/* ================= BUTTON ================= */
+.login-btn,
+.mobile-login-btn {
+  padding: 8px 14px;
   border: none;
+  border-radius: 20px;
+  font-weight: bold;
   cursor: pointer;
   background: white;
+  color: #6c63ff;
 }
 
 .logout {
@@ -276,23 +122,111 @@
   color: white;
 }
 
-/* 📱 MOBILE */
+/* ================= HAMBURGER ================= */
 .menu-icon {
   display: none;
+  font-size: 24px;
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-    flex-direction: column;
-  }
+/* ================= MOBILE-ONLY — HIDDEN ON DESKTOP ================= */
+.mobile-cart,
+.mobile-user,
+.mobile-login-btn {
+  display: none;
+}
 
-  .nav-links.active {
-    display: flex;
-  }
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
 
   .menu-icon {
     display: block;
+  }
+
+  /* Desktop right side hide */
+  .nav-right {
+    display: none;
+  }
+
+  /* Mobile menu panel */
+  .nav-links {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: burlywood;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 0;
+    transform: translateY(-150%);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.4s ease;
+    z-index: 999;
+  }
+
+  .nav-links.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* ✅ Mobile cart — show with badge */
+  .mobile-cart {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 24px;
+    position: relative;
+    cursor: pointer;
+    color: darkred;
+  }
+
+  .mobile-cart .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: red;
+    color: white;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 50%;
+  }
+
+  /* ✅ Mobile welcome name + avatar */
+  .mobile-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    text-align: center;
+    color: darkred;
+    font-weight: 600;
+  }
+
+  .mobile-user .user-avatar {
+    width: 42px;
+    height: 42px;
+  }
+
+  /* ✅ Mobile login/logout button */
+  .mobile-login-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    background: white;
+    color: #6c63ff;
+  }
+
+  .mobile-login-btn.logout {
+    background: red;
+    color: white;
   }
 }
