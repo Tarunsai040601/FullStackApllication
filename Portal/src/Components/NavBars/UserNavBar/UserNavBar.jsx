@@ -167,7 +167,7 @@ const UserNavBar = () => {
           <div className="user-info">
             <span>Welcome:Hi..! 👋 {formattedName}, {greeting}</span>
             <img
-              src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
+              src="https://www.searchunify.com/wp-content/uploads/2025/09/ai-support-banner-logo.webp"
               alt="user"
               className="user-avatar"
             />

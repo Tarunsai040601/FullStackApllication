@@ -74,7 +74,7 @@ const AdminNavBar = () => {
 
         {/* MOBILE WELCOME */}
         <div className="mobile-welcome">
-          <span>👋 Welcome, {adminName}</span>
+          <span>Welcome:{adminName}</span>
         </div>
 
         {/* MOBILE LOGOUT */}

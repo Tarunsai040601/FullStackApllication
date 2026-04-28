@@ -1,0 +1,465 @@
+/* ============================================
+   Faqs.css — Wedding Photography FAQ Styles
+   ============================================ */
+
+:root {
+  --gold: #c9922a;
+  --gold-light: #f5e6c8;
+  --gold-glow: #c9922a22;
+  --dark: #1c1c1c;
+  --soft-bg: #faf7f2;
+  --white: #ffffff;
+  --text-muted: #888888;
+  --text-body: #555555;
+  --border-light: #eee8dc;
+}
+
+/* ── Page Wrapper ── */
+.faq-page {
+  min-height: 100vh;
+  background: var(--soft-bg);
+  font-family: "Georgia", "Times New Roman", serif;
+  position: relative;
+  overflow: hidden;
+  padding: 0 0 60px;
+}
+
+/* ── Background Decorative Circles ── */
+.faq-bg-circle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.faq-bg-circle--top {
+  top: -120px;
+  right: -120px;
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, #f5e6c855 0%, transparent 70%);
+}
+
+.faq-bg-circle--bottom {
+  bottom: -100px;
+  left: -100px;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+}
+
+/* ── Container ── */
+.faq-container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Header ── */
+.faq-header {
+  text-align: center;
+  padding-top: 56px;
+  padding-bottom: 32px;
+}
+
+.faq-couple-name {
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-family: "Georgia", serif;
+}
+
+.faq-title {
+  font-size: clamp(40px, 8vw, 62px);
+  color: var(--gold);
+  font-family: "Georgia", serif;
+  font-style: italic;
+  margin: 0 0 12px;
+  font-weight: 400;
+}
+
+/* ── Divider ── */
+.faq-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.faq-divider__leaf {
+  font-size: 16px;
+  opacity: 0.6;
+}
+
+.faq-divider__line {
+  display: block;
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.faq-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-family: sans-serif;
+  margin: 0;
+}
+
+/* ── Category Block ── */
+.faq-category {
+  margin-bottom: 36px;
+}
+
+.faq-category__title {
+  font-size: 15px;
+  font-family: sans-serif;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--gold-light);
+  padding-bottom: 8px;
+}
+
+/* ── FAQ List ── */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── FAQ Item ── */
+.faq-item {
+  background: var(--white);
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.faq-item--open {
+  box-shadow: 0 4px 24px var(--gold-glow);
+  border-color: var(--gold-light);
+}
+
+/* ── FAQ Question Button ── */
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  gap: 12px;
+}
+
+.faq-question__text {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--dark);
+  font-family: sans-serif;
+  line-height: 1.4;
+}
+
+.faq-question__icon {
+  font-size: 20px;
+  color: var(--gold);
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.faq-question__icon--open {
+  transform: rotate(180deg);
+}
+
+/* ── FAQ Answer ── */
+.faq-answer {
+  display: flex;
+  gap: 12px;
+  padding: 0 20px 18px;
+  align-items: flex-start;
+}
+
+.faq-answer__bar {
+  width: 3px;
+  min-height: 40px;
+  background: var(--gold);
+  border-radius: 8px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.faq-answer__text {
+  font-size: 14px;
+  color: var(--text-body);
+  font-family: sans-serif;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── Footer ── */
+.faq-footer {
+  margin-top: 48px;
+  text-align: center;
+  background: var(--white);
+  border: 1px solid var(--gold-light);
+  border-radius: 16px;
+  padding: 32px 24px;
+}
+
+.faq-footer__text {
+  font-size: 15px;
+  color: var(--text-muted);
+  font-family: sans-serif;
+  margin-bottom: 16px;
+}
+
+.faq-footer__btn {
+  background: var(--gold);
+  color: var(--white);
+  border: none;
+  border-radius: 30px;
+  padding: 12px 32px;
+  font-size: 14px;
+  font-family: sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.faq-footer__btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   Modal Styles
+   ============================================ */
+
+/* ── Overlay ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 28, 28, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+  animation: overlayFadeIn 0.25s ease;
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Card ── */
+.modal-card {
+  background: var(--white);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 420px;
+  padding: 36px 28px 28px;
+  position: relative;
+  box-shadow: 0 24px 64px rgba(201, 146, 42, 0.18), 0 4px 16px rgba(0,0,0,0.1);
+  animation: cardSlideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes cardSlideUp {
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Close Button ── */
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border-light);
+  background: var(--soft-bg);
+  color: var(--text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.modal-close:hover {
+  background: var(--gold-light);
+  color: var(--gold);
+}
+
+/* ── Modal Header ── */
+.modal-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.modal-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+  line-height: 1;
+}
+
+.modal-title {
+  font-size: 22px;
+  color: var(--dark);
+  font-family: "Georgia", serif;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+
+.modal-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-family: sans-serif;
+  margin: 0;
+}
+
+/* ── Modal Divider ── */
+.modal-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+  margin: 0 0 20px;
+}
+
+/* ── Contact Option Buttons ── */
+.modal-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.modal-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1.5px solid var(--border-light);
+  background: var(--soft-bg);
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.modal-option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(201, 146, 42, 0.12);
+}
+
+.modal-option--whatsapp:hover {
+  border-color: #25d366;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.15);
+}
+
+.modal-option--phone:hover {
+  border-color: var(--gold);
+  box-shadow: 0 6px 20px var(--gold-glow);
+}
+
+.modal-option--email:hover {
+  border-color: #4f9cf9;
+  box-shadow: 0 6px 20px rgba(79, 156, 249, 0.15);
+}
+
+.modal-option__icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.modal-option__info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  text-align: left;
+}
+
+.modal-option__label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark);
+  font-family: sans-serif;
+}
+
+.modal-option__desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: sans-serif;
+  margin-top: 2px;
+}
+
+.modal-option__arrow {
+  font-size: 16px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.modal-option:hover .modal-option__arrow {
+  transform: translateX(4px);
+  color: var(--gold);
+}
+
+/* ── Modal Note ── */
+.modal-note {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: sans-serif;
+  margin: 0;
+  padding-top: 4px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .faq-container {
+    padding: 0 16px;
+  }
+
+  .faq-header {
+    padding-top: 36px;
+    padding-bottom: 24px;
+  }
+
+  .faq-question {
+    padding: 14px 16px;
+  }
+
+  .faq-answer {
+    padding: 0 16px 16px;
+  }
+
+  .faq-category__title {
+    font-size: 13px;
+  }
+
+  .faq-footer {
+    padding: 24px 16px;
+  }
+
+  .modal-card {
+    padding: 28px 20px 24px;
+    border-radius: 20px;
+  }
+}

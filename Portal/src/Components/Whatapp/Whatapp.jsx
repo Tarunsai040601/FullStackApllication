@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import whatsapp from "../../assets/images/whatsapp.jpg";
+import AiBoat from "../../assets/images/AiBoat.png";
 import "./Whatsapp.css";
 
 const Whatsapp = () => {
@@ -63,7 +63,7 @@ const Whatsapp = () => {
         rel="noopener noreferrer"
       >
         <img
-          src={whatsapp}
+          src={AiBoat}
           alt="Chat on WhatsApp"
           className="whatsapp-button"
         />
