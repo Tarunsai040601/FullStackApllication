@@ -9,7 +9,7 @@ const {
 
 // middlewares
 const authmiddleware = require("../../MiddleWares/AuthMiddle/Auth.js");
-const roleMiddleware = require("../../Middlewares/AuthMiddle/RoleMiddleware.js");
+const roleMiddleware = require("../../MiddleWares/AuthMiddle/RoleMiddleware.js");
 
 // router
 const authRoutes = express.Router();
