@@ -3,7 +3,7 @@ import axios from "axios";
 import "./AdminProducts.css";
 import Swal from "sweetalert2";
 
-const API = "http://localhost:4000/api/data";
+// const API = "https://fullstackapllication-2.onrender.com/api/data";
 
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
@@ -21,7 +21,7 @@ const AdminProducts = () => {
   /* ================= FETCH ================= */
   const fetchProducts = async () => {
     try {
-      const res = await axios.get(`${API}/post`);
+      const res = await axios.get(`https://fullstackapllication-2.onrender.com/api/data/post`);
       setProducts(res.data.data);
     } catch (err) {
       console.log(err);
@@ -61,7 +61,7 @@ const AdminProducts = () => {
 
     try {
       if (editId) {
-        await axios.put(`${API}/update/${editId}`, formData, {
+        await axios.put(`https://fullstackapllication-2.onrender.com/api/data/update/${editId}`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -70,7 +70,7 @@ const AdminProducts = () => {
         Swal.fire("Updated Successfully ✏️");
         setEditId(null);
       } else {
-        await axios.post(`${API}/post`, formData, {
+        await axios.post(`https://fullstackapllication-2.onrender.com/api/data/post`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -107,7 +107,7 @@ const AdminProducts = () => {
     if (!confirm.isConfirmed) return;
 
     try {
-      await axios.delete(`${API}/delete/${id}`, {
+      await axios.delete(`https://fullstackapllication-2.onrender.com/api/data/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

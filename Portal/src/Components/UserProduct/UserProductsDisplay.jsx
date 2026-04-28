@@ -5,14 +5,14 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import Footer from "../Fotter/Fotter.jsx";
 
-const API = "http://localhost:4000/api/data";
+// const API = "https://fullstackapllication-2.onrender.com/api/data/post";
 
 const UserProductsDisplay = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`${API}/post`).then((res) => {
+    axios.get(`https://fullstackapllication-2.onrender.com/api/data/post`).then((res) => {
       setProducts(res.data.data);
     });
   }, []);

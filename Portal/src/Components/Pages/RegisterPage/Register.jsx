@@ -31,7 +31,7 @@ const Register = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:4000/api/register",
+        "https://fullstackapllication-2.onrender.com/api/register",
         formData
       );
 
