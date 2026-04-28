@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./cart.css";
-import Footer from "../Fotter/Fotter";
+import Footer from "../Fotter/Fotter.jsx";
 
 const CartPage = () => {
   const [cart, setCart] = useState([]);

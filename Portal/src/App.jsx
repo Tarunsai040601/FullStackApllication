@@ -10,27 +10,22 @@ import UserRegister from "./Components/Pages/RegisterPage/Register.jsx";
 import Services from "./Components/Services/Services.jsx";
 import UserProductsDisplay from "./Components/UserProduct/UserProductsDisplay.jsx";
 import CartPage from "./Components/Addcard/CartPage.jsx";
-import Location from './Components/Loaction/Location.jsx'
-
+import Location from "./Components/Loaction/Location.jsx";
 
 /* ADMIN */
 import AdminLayout from "./Components/LayOuts/AdminLayout.jsx";
 import AdminHomepage from "./Components/AdminDashboard/HomePages/Adminhomepage.jsx";
 import AdminProducts from "./Components/AdminDashboard/AdminProducts/AdminProducts.jsx";
-// import Customers from "./Components/AdminDashboard/Customers/Customers.jsx";
 import Reviews from "./Components/Reviews/ReviewPosters/Reviews.jsx";
-
-
 
 const App = () => {
   return (
     <Routes>
-
-      {/* 🔓 PUBLIC ROUTES */}
+      {/*  PUBLIC ROUTES */}
       <Route path="/login" element={<UserLogin />} />
       <Route path="/register" element={<UserRegister />} />
 
-      {/* 🔐 USER ROUTES */}
+      {/*  USER ROUTES */}
       <Route path="/" element={<Layout />}>
         <Route index element={<UserHome />} />
         <Route path="home" element={<UserHome />} />
@@ -38,22 +33,15 @@ const App = () => {
         <Route path="services" element={<Services />} />
         <Route path="items" element={<UserProductsDisplay />} />
         <Route path="cart" element={<CartPage />} />
-        <Route path="reviews" element={<Reviews/>}/>
-        <Route  element={<Location/>}/>
-        
+        <Route path="reviews" element={<Reviews />} />
+        <Route element={<Location />} />
       </Route>
 
-      {/* 🔐 ADMIN ROUTES */}
+      {/*  ADMIN ROUTES */}
       <Route path="/admindashboard" element={<AdminLayout />}>
         <Route index element={<AdminHomepage />} />
         <Route path="products" element={<AdminProducts />} />
-        {/* <Route path="customer" element={<Customers/>} /> */}
-
-
-        
-        
       </Route>
-
     </Routes>
   );
 };

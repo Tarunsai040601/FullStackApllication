@@ -3,7 +3,7 @@ import axios from "axios";
 import "./UserProducts.css";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import Footer from "../Fotter/Fotter";
+import Footer from "../Fotter/Fotter.jsx";
 
 const API = "http://localhost:4000/api/data";
 
@@ -24,7 +24,7 @@ const UserProductsDisplay = () => {
 
     if (!token || !userName) {
       Swal.fire({
-        title: "Login Required 🔒",
+        title: "Login Required boss🔒",
         text: "Please login to add items to cart",
         icon: "warning",
       }).then((res) => {

@@ -15,7 +15,7 @@ const AdminProducts = () => {
   });
   const [editId, setEditId] = useState(null);
 
-  // ✅ ADMIN TOKEN FROM SESSION
+  //  ADMIN TOKEN FROM SESSION
   const token = sessionStorage.getItem("adminToken");
 
   /* ================= FETCH ================= */
@@ -140,7 +140,7 @@ const AdminProducts = () => {
 
       <h1>{editId ? "Update Product ✏️" : "Add Product 📦"}</h1>
 
-      {/* 🔥 FORM */}
+      {/*  FORM */}
       <form onSubmit={handleSubmit} className="form">
         <input
           name="title"
@@ -173,7 +173,7 @@ const AdminProducts = () => {
         </button>
       </form>
 
-      {/* 🔥 PRODUCTS GRID */}
+      {/*  PRODUCTS GRID */}
       <div className="grid">
         {products.map((p) => (
           <div className="card" key={p._id}>

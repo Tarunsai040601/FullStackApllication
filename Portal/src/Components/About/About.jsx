@@ -1,5 +1,5 @@
 import React from "react";
-import titleimage from "../../assets/images/titleimage.jpg"; // ✅ Add correct extension like .jpg or .png
+import titleimage from "../../assets/images/titleimage.jpg"; 
 import "./About.css";
 import Fotter from '../Fotter/Fotter.jsx'
 import Teams from "../Teams/Teams";

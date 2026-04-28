@@ -52,7 +52,7 @@ const UserHome = () => {
         <p>Capturing the beautiful moments together 💖</p>
       </div>
 
-      {/* 1️⃣ PHOTO FRAMES */}
+      {/*  PHOTO FRAMES */}
       <div className="section">
         <h2>Our Portraits</h2>
 
@@ -69,7 +69,7 @@ const UserHome = () => {
         </div>
       </div>
 
-      {/* 2️⃣ THREADING IMAGES */}
+      {/*  THREADING IMAGES */}
       <div className="section">
         <h2>Thread Art</h2>
 
@@ -86,7 +86,7 @@ const UserHome = () => {
         </div>
       </div>
 
-      {/* 3️⃣ GIFTS */}
+      {/*  GIFTS */}
       <div className="section">
         <h2>Customized Gifts 🎁</h2>
 

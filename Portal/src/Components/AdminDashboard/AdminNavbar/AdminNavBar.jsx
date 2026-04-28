@@ -23,7 +23,7 @@ const AdminNavBar = () => {
     setAdminName(admin?.name || "Admin");
   }, []);
 
-  // ✅ LOGOUT WITH ALERT
+  //  LOGOUT WITH ALERT
   const handleLogout = () => {
     Swal.fire({
       title: "Thank you 😊",
@@ -39,9 +39,9 @@ const AdminNavBar = () => {
   };
 
   const navLinks = [
-    // { to: "/admindashboard", icon: <FiHome />, label: "Dashboard" },
+  
     { to: "/admindashboard/products", icon: <FiPackage />, label: "Products" },
-    // { to: "/admindashboard/customer", icon: <FiUsers />, label: "Customers" },
+   
   ];
 
   return (

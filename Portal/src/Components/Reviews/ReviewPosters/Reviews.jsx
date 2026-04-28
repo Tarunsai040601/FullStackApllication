@@ -6,8 +6,7 @@ import xyz from "../../../assets/images/xyz.jpg"
 import abc from "../../../assets/images/abc.jpg"
 import bindu from '../../../assets/images/bindu.jpg'
 import ImageSlider from "../../ImageSlider/ImageSlider";
-// import anusha from '../../../assets/anusha.jpg'
-// import ReviewForm from "../ReviewForms/ReviewForm";
+
 
 const reviews = [
   {
@@ -65,7 +64,6 @@ const Reviews = () => {
         ))}
       </div>
     </div>
-    {/* <ReviewForm/> */}
     <ImageSlider/>
     </>
   );

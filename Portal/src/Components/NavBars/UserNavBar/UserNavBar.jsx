@@ -39,7 +39,7 @@ const UserNavBar = () => {
       const token = sessionStorage.getItem("userToken");
       const user = JSON.parse(sessionStorage.getItem("user"));
 
-      // ✅ NAME FIX (IMPORTANT CHANGE)
+      //  NAME  display
       const name = user?.name || user?.username || user?.email || "";
       const email = user?.email || "";
 
@@ -69,7 +69,7 @@ const UserNavBar = () => {
   // Login
   const handleLogin = () => {
     Swal.fire({
-      title: "Login Required 🔐",
+      title: "Login Required Boss 🔐",
       text: "Do you want to login?",
       icon: "question",
       showCancelButton: true,
@@ -81,7 +81,7 @@ const UserNavBar = () => {
   // Logout
   const handleLogout = () => {
     Swal.fire({
-      title: "Logged Out",
+      title: "Tata Bye Bye...! Logged Out",
       icon: "warning",
       showCancelButton: true,
     }).then((res) => {

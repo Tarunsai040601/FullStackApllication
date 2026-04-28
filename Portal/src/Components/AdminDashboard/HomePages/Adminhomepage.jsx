@@ -46,7 +46,7 @@ const AdminHomepage = () => {
   const [adminName, setAdminName] = useState("Admin");
 
   useEffect(() => {
-    // ✅ Get admin name from session
+    //  Get admin name from session
     const admin = JSON.parse(sessionStorage.getItem("admin"));
     const email = admin?.name || "Admin";
     // Show only name part before @ if email
@@ -61,11 +61,11 @@ const AdminHomepage = () => {
     <>
     <div className="dash">
 
-      {/* 🔥 HERO */}
+      {/*  HERO */}
       <div className="hero-bar">
         <div className="hero-overlay">
           <div>
-            {/* ✅ Greeting + Admin Name */}
+            {/*  Greeting + Admin Name */}
             <h2>{greeting.text}, {adminName} </h2>
             <p>Portraits by Couples · Capturing timeless love stories</p>
           </div>
