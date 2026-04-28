@@ -3,7 +3,7 @@ import "./Reviews.css";
 import tarunsai from "../../../assets/images/tarunsai.jpg"
 import saketh from "../../../assets/images/saketh.jpg"
 import xyz from "../../../assets/images/xyz.jpg"
-import abc from "../../../assets/images/abc.jpg"
+import abc from "../../../assets/images/abc.JPG"
 import bindu from '../../../assets/images/bindu.jpg'
 import Faqs from "../../FAQS/Faqs.jsx";
 import Sticker from "../../Banner/Sticker.jsx";
