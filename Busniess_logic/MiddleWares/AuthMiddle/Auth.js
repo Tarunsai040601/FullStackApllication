@@ -5,7 +5,7 @@ const authmiddleware = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 
-    // ❌ No token
+    //  No token
     if (!authHeader) {
       return res.status(401).json({
         success: false,
@@ -13,7 +13,7 @@ const authmiddleware = (req, res, next) => {
       });
     }
 
-    // ❌ Invalid format
+    //  Invalid format
     if (!authHeader.startsWith("Bearer ")) {
       return res.status(401).json({
         success: false,
@@ -30,10 +30,10 @@ const authmiddleware = (req, res, next) => {
       });
     }
 
-    // ✅ VERIFY TOKEN
+    //  VERIFY TOKEN
     const decoded = jwt.verify(token, process.env.jwt_token);
 
-    // 🔥 attach user to request
+    // attach user to request
     req.user = decoded;
 
     next();
@@ -41,7 +41,7 @@ const authmiddleware = (req, res, next) => {
   } catch (error) {
     console.log("AUTH ERROR:", error.message);
 
-    // 🔥 better error handling
+    //  better error handling
     if (error.name === "TokenExpiredError") {
       return res.status(401).json({
         success: false,

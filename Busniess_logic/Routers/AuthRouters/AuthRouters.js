@@ -30,7 +30,7 @@ authRoutes.post("/register", registerController);
 // ✅ LOGIN
 authRoutes.post("/login", loginController);
 
-// 👑 ADMIN DASHBOARD (ONLY ADMIN)
+//  ADMIN DASHBOARD (ONLY ADMIN)
 authRoutes.get(
   "/admin-dashboard",
   authmiddleware,
@@ -43,7 +43,7 @@ authRoutes.get(
   },
 );
 
-// 👤 USER DASHBOARD (ONLY USER)
+//  USER DASHBOARD (ONLY USER)
 authRoutes.get(
   "/user-dashboard",
   authmiddleware,

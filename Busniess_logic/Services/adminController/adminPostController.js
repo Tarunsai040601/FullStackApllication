@@ -1,7 +1,7 @@
 const portSchem = require("../../Models/AdminPosts/adminPostSchema.js");
-const cloudinary = require("../../Configurations/cloudinary");
+const cloudinary = require("../../Configurations/cloudinary.js");
 
-// 🔹 GET ALL
+//  GET ALL
 const postFetching = async (req, res) => {
   try {
     const data = await portSchem.find();
@@ -11,13 +11,13 @@ const postFetching = async (req, res) => {
   }
 };
 
-// 🔹 CREATE
+//  CREATE
 const postData = async (req, res) => {
   try {
     const { title, description, cost } = req.body;
 
     if (!req.file) {
-      return res.status(400).json({ message: "Image required ❌" });
+      return res.status(400).json({ message: "Image required " });
     }
 
     const newPost = new portSchem({
@@ -38,7 +38,7 @@ const postData = async (req, res) => {
   }
 };
 
-// 🔹 GET SINGLE
+//  GET SINGLE
 const postFetch = async (req, res) => {
   try {
     const post = await portSchem.findById(req.params.id);
@@ -48,7 +48,7 @@ const postFetch = async (req, res) => {
   }
 };
 
-// 🔹 UPDATE
+//  UPDATE
 const postUpdate = async (req, res) => {
   try {
     const post = await portSchem.findById(req.params.id);
@@ -77,7 +77,7 @@ const postUpdate = async (req, res) => {
   }
 };
 
-// 🔹 DELETE
+//  DELETE
 const PostDelete = async (req, res) => {
   try {
     const post = await portSchem.findById(req.params.id);
@@ -88,7 +88,7 @@ const PostDelete = async (req, res) => {
 
     await portSchem.findByIdAndDelete(req.params.id);
 
-    res.status(200).json({ message: "Deleted ✅" });
+    res.status(200).json({ message: "Deleted " });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
