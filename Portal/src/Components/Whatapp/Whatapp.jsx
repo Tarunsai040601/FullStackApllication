@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import AiBoat from "../../assets/images/whatapp.jpg";
+import AiBoat from "../../assets/images/whatsapp.jpg";
 import "./Whatsapp.css";
 
 const Whatsapp = () => {
